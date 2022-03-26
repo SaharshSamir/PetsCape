@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import { Avatar, Button, TextField, styled, Popover } from "@mui/material";
 import CustomButton from "../custom-button/customButton.component";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-
 
 const SearchBar = styled(TextField)(() => ({
   width: "50vw",
@@ -32,7 +31,7 @@ const SearchBar = styled(TextField)(() => ({
   },
 }));
 
-const DropDownKey = ({ text, iconName,...props }) => {
+const DropDownKey = ({ text, iconName, ...props }) => {
   return (
     <Button
       sx={{
@@ -66,6 +65,7 @@ const Header = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const { logout, user } = useAuth();
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -100,13 +100,21 @@ const Header = () => {
           placeholder="Search care takers"
         />
       </Flex>
-      <Flex direction="row" padding="0 20px">
-        <CustomButton onClick={() => navigate("/hostVerify")}>
-          BECOME A HOST
-        </CustomButton>
+      <Flex direction="row" padding="0 20px" alignItems="center">
+        {user.isHost ? (
+          <Box color="#4CAF50">HOST</Box>
+        ) : user.isPending ? (
+          <CustomButton onClick={()=>{}}>
+            REQUEST PENDING
+          </CustomButton>
+        ) : (
+          <CustomButton onClick={() => navigate("/hostVerify")}>
+            BECOME A HOST{" "}
+          </CustomButton>
+        )}
 
         <Avatar
-          src="https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"
+          src={user?.profilePic || "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"}
           sx={{ marginLeft: "20px" }}
           aria-describedby={id}
           onClick={handleClick}
@@ -129,8 +137,28 @@ const Header = () => {
           <Box padding="10px">
             <DropDownKey text="My Profile" iconName="bx:user-circle" />
             <DropDownKey text="Messages" iconName="jam:messages-alt-f" />
-            <DropDownKey text="View requests" iconName="bx:message-check" onClick={()=>{navigate('/host/requests')}} />
-            <DropDownKey text="Logout" iconName="ri:logout-circle-line" />
+            <DropDownKey
+              text="View requests"
+              iconName="bx:message-check"
+              onClick={() => {
+                navigate("/host/requests");
+              }}
+            />
+            <DropDownKey
+              text="My Requests"
+              iconName="carbon:data-view-alt"
+              onClick={() => {
+                navigate("/myRequests");
+              }}
+            />
+
+            <DropDownKey
+              text="Logout"
+              iconName="ri:logout-circle-line"
+              onClick={() => {
+                logout();
+              }}
+            />
           </Box>
         </Popover>
       </Flex>

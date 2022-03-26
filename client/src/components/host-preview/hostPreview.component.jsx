@@ -20,7 +20,7 @@ const HostPreview = ({ host }) => {
       padding="10px"
     >
       <ImageContainer url={host.profilePic}>100m</ImageContainer>
-      <Flex direction="column" justifyContent="space-between">
+      <Flex direction="column" justifyContent="space-between" width="25%">
         <Box>
           <Text fontSize="2em">{host.name}</Text>
           <Rating value={5} readOnly size="large" />
@@ -37,7 +37,7 @@ const HostPreview = ({ host }) => {
         <CustomButton
           simple
           onClick={() => {
-            navigate("/");
+            navigate(`/host/${host._id}`);
           }}
         >
           VIEW PROFILE

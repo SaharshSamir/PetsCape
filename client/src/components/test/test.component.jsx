@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import ClientRequestCard from "../Request/ClientRequestCard.component";
 
 const Test = () => {
-  return (
-    <div>Test</div>
-  )
-}
+  return <ClientRequestCard />;
+};
 
-export default Test
+export default Test;
