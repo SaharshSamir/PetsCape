@@ -70,12 +70,12 @@ const HostProfile = () => {
       <HostFormModal state={state} toggleModal={toggleImageModal} />
       <div className="header">
         <div className="dp-container">
-          <img src={user.profilePic} alt="display pic" />
+          <img src={user?.profilePic} alt="display pic" />
         </div>
         <div className="details-container">
           <div className="username-location-container">
             <div className="username-verified-container">
-              <p className="username">{user.name}</p>
+              <p className="username">{user?.name}</p>
               <VerifiedUserIcon
                 sx={{ color: "#FF9800", marginLeft: "2rem" }}
                 fontSize="large"

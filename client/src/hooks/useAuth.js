@@ -25,7 +25,7 @@ const useAuth = () => {
       const { token, userLogin } = response.data;
       setSession(token);
       dispatch(loginSuccess({ ...userLogin }));
-      console.log(userLogin,"he he he");
+      console.log(userLogin, "he he he");
       if (userLogin.isAdmin) {
         navigate("/admin");
       } else {
@@ -37,6 +37,7 @@ const useAuth = () => {
   const logout = useCallback(async () => {
     setSession(null);
     dispatch(logoutSuccess());
+    navigate("/login");
   }, []);
 
   const registerAdmin = useCallback(async (adminData) => {
@@ -103,7 +104,7 @@ const useAuth = () => {
     initializeAuth,
     deleteAdmin,
     isLoggedIn,
-    user
+    user,
   };
 };
 
