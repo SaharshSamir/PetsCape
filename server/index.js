@@ -11,6 +11,7 @@ app.use(express.json());
 
 require("./db/conn");
 app.use("/", require("./routes/UserRoutes"));
+app.use("/request", require("./routes/RequestRoutes"));
 
 app.listen(port, () => {
   console.log(`App listening on port http://localhost:${port}`);
