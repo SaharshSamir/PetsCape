@@ -169,13 +169,30 @@ const rejectRequest = async (req, res) => {
   }
 };
 
+const changePrice = async(req,res)=>{
+    const {reqId,rate,total} = req.body;
+    const price = {
+        total,rate
+    }
+    try {
+        const change = await Request.findByIdAndUpdate({_id:reqId},{price})
+        if(change) res.status(200).send({ ok: true, message:"Price Changed!" });
+        else{
+            res.status(200).send({ ok: false, message:"Error" });
+        }
+    } catch (error) {
+        
+    }
+}
+
 module.exports = {
-  createHost,
-  getPendingHosts,
-  getHost,
-  approveHost,
-  rejectHost,
-  getAllHosts,
-  acceptRequest,
-  rejectRequest,
-};
+    createHost,
+    getPendingHosts,
+    getHost,
+    approveHost,
+    rejectHost,
+    getAllHosts,
+    acceptRequest,
+    rejectRequest,
+    changePrice
+  };
