@@ -10,7 +10,6 @@ const HostVerify = () => {
     gender: "",
     idProof: "",
     profilePic: "",
-    hostType: "",
     interest: "",
     hostBio: "",
     latitude: "",
@@ -34,23 +33,17 @@ const HostVerify = () => {
 
   const [animal, setAnimal] = useState(false);
   const [plants, setPlants] = useState(false);
+  const [typeData, setTypeData] = useState({
+    animal: false,
+    plant: false,
+  });
+
+  const handleCheck = (e, name) => {
+    setTypeData({ ...typeData, [name]: e.target.checked });
+  };
+
   const onChangeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-  };
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-    if (animal && plants) {
-      console.log("here");
-      setData((data) => ({ ...data, hostType: "both" }));
-    } else {
-      if (animal) {
-        setData((data) => ({ ...data, hostType: "animals" }));
-      } else if (plants) {
-        setData((data) => ({ ...data, hostType: "plants" }));
-      }
-    }
-
-    console.log(data);
   };
 
   const showWidget = () => {
@@ -102,15 +95,26 @@ const HostVerify = () => {
     widget.open();
   };
 
-  const checkHandler = (e) => {
-    console.log(e.target.checked);
 
-    if (e.target.name === "animals") {
-      setAnimal(e.target.checked);
-    } else {
-      setPlants(e.target.checked);
+  const handleSubmit = () =>{
+    let a;
+    if(typeData.animal && typeData.plant){
+      a = "both"
+    }else if(typeData.animal){
+      a = "animal"
+    }else if(typeData.plant){
+      a = "plant";
+    }else{
+      return;
     }
-  };
+    const mainData = {
+      ...data,
+      hostType:a
+    }
+
+    console.log(mainData);
+  }
+
   return (
     <Flex justifyContent="center" alignItems="center">
       <Flex
@@ -162,7 +166,11 @@ const HostVerify = () => {
         <Flex justifyContent="center" alignItems="flex-start">
           <Flex justifyContent="center" alignItems="center">
             <Checkbox
-              onChange={(e) => checkHandler(e)}
+              // onChange={(e) => checkHandler(e)}
+              checked={typeData.animal}
+              onChange={(e)=>{
+                handleCheck(e,'animal');
+              }}
               label="animals"
               color="success"
               name="animals"
@@ -171,8 +179,11 @@ const HostVerify = () => {
           </Flex>
           <Flex justifyContent="center" alignItems="center">
             <Checkbox
-              onChange={(e) => checkHandler(e)}
               label="plants"
+              checked={typeData.plant}
+              onChange={(e) => {
+                handleCheck(e, "plant");
+              }}
               color="success"
               name="plants"
             />
@@ -203,7 +214,9 @@ const HostVerify = () => {
               width: "80%",
               fontSize: "1.2rem",
             }}
-            onClick={(e) => onSubmitHandler(e)}
+            onClick={() =>{
+              handleSubmit();
+            }}
           >
             Lessgoo
           </CustomButton>
