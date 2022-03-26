@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { Chip, Rating } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import React from "react";
 import CustomButton from "../custom-button/customButton.component";
 
