@@ -20,17 +20,24 @@ const Login = () => {
       >
         <Flex
           p="0.5rem"
-          h="70vh"
+          h="auto"
           boxShadow="2px 2px 10px #D3D3D3"
           w="60%"
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
           borderRadius="10px"
+          position="relative"
         >
-          <Text fontWeight="400" fontSize="2.5rem">
-            Login
+          <Text p="0.4rem" fontWeight="400" fontSize="1.8rem">
+            Create an account
           </Text>
+          <TextField
+            sx={{ marginBottom: "1rem", width: "80%" }}
+            id="standard-basic"
+            label="Name"
+            variant="outlined"
+          />
           <TextField
             sx={{ marginBottom: "1rem", width: "80%" }}
             id="standard-basic"
@@ -38,9 +45,15 @@ const Login = () => {
             variant="outlined"
           />
           <TextField
-            sx={{ width: "80%" }}
+            sx={{ width: "80%", marginBottom: "1rem" }}
             id="standard-basic"
             label="Pawsword"
+            variant="outlined"
+          />
+          <TextField
+            sx={{ width: "80%" }}
+            id="standard-basic"
+            label="Comfirm Pawsword"
             variant="outlined"
           />
           <Box w="50%" mt="2rem">
@@ -51,15 +64,15 @@ const Login = () => {
                 fontSize: "1.2rem",
               }}
             >
-              Login
+              Sign Up
             </CustomButton>
           </Box>
-          <Flex mt="4rem" alignItems="flex-end">
-            Not a pawember?{" "}
+          <Flex mt="3rem" alignItems="flex-end">
+            Already a pawember?{" "}
             <span>
-              <a style={{ marginLeft: "0.2rem" }} href="/signup">
+              <a style={{ marginLeft: "0.2rem" }} href="/login">
                 {" "}
-                Signup here
+                Login here
               </a>
             </span>
           </Flex>

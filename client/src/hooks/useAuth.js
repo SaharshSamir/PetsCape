@@ -1,17 +1,16 @@
 import { useCallback } from "react";
 
-import { loginSuccess, logoutSuccess,initialize } from "../redux/slices/auth";
+import { loginSuccess, logoutSuccess, initialize } from "../redux/slices/auth";
 import { useSnackbar } from "notistack";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setSession, isValidToken } from "../utils/jwt";
-import axios from "../utils/axios";
+import { setSession, isValidToken } from "../routes/utils/jwt";
+import axios from "../routes/utils/axios";
 
 const useAuth = () => {
   const dispatch = useDispatch();
-  const { isLoggedIn,user } = useSelector((state) => state.auth);
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
   const { enqueueSnackbar } = useSnackbar();
-  
 
   const login = useCallback(async (userData) => {
     const response = await axios.post("/admin/login", userData);
@@ -33,14 +32,14 @@ const useAuth = () => {
 
   const registerAdmin = useCallback(async (adminData) => {
     const response = await axios.post("/admin/addAdmin", adminData);
-    console.log(response,"admin respose");
+    console.log(response, "admin respose");
     if (!response.data.ok) {
       console.log(response.data.message);
       enqueueSnackbar(response.data.message, { variant: "error" });
       return false;
     } else {
       console.log(response);
-      enqueueSnackbar(response.data.message,{variant:'success'});
+      enqueueSnackbar(response.data.message, { variant: "success" });
       return true;
     }
   }, []);
@@ -77,16 +76,14 @@ const useAuth = () => {
     }
   });
 
-
-  const deleteAdmin = useCallback(async (id)=>{
+  const deleteAdmin = useCallback(async (id) => {
     const response = await axios.delete(`/admin/${id}`);
-    if(response.data.ok){
-      enqueueSnackbar(response.data.message,{variant:'success'});
-    }else{
-      enqueueSnackbar('Error deleting admin!',{variant:'error'});
+    if (response.data.ok) {
+      enqueueSnackbar(response.data.message, { variant: "success" });
+    } else {
+      enqueueSnackbar("Error deleting admin!", { variant: "error" });
     }
-  },[])
-
+  }, []);
 
   return {
     login,
@@ -95,7 +92,7 @@ const useAuth = () => {
     registerAdmin,
     initializeAuth,
     deleteAdmin,
-    user
+    user,
   };
 };
 
