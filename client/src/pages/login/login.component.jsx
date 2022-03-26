@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/image";
 import loginImg from "../../assets/loginImg.png";
 import { Text } from "@chakra-ui/layout";
 import { TextField } from "@mui/material";
 import CustomButton from "../../components/custom-button/customButton.component";
+import useAuth from "../../hooks/useAuth";
+
 const Login = () => {
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    cpassword: "",
+  });
+  const { login } = useAuth();
+  const onChangeHandler = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    console.log(data);
+    login(data);
+  };
   return (
     <Flex>
       <Box w="50%" h="100vh">
@@ -28,7 +45,7 @@ const Login = () => {
           alignItems="center"
           borderRadius="10px"
         >
-          <Text fontWeight="400" fontSize="2.5rem">
+          <Text m="1rem" fontWeight="400" fontSize="2.5rem">
             Login
           </Text>
           <TextField
@@ -36,24 +53,29 @@ const Login = () => {
             id="standard-basic"
             label="Email"
             variant="outlined"
+            name="email"
+            onChange={(e) => onChangeHandler(e)}
           />
           <TextField
             sx={{ width: "80%" }}
             id="standard-basic"
             label="Pawsword"
             variant="outlined"
+            name="password"
+            onChange={(e) => onChangeHandler(e)}
           />
-          <Box w="50%" mt="2rem">
+          <Flex justifyContent="center" alignItems="center" w="50%" mt="2rem">
             <CustomButton
               sx={{
                 padding: "0.6rem",
                 width: "80%",
                 fontSize: "1.2rem",
               }}
+              onClick={(e) => onSubmitHandler(e)}
             >
               Login
             </CustomButton>
-          </Box>
+          </Flex>
           <Flex mt="4rem" alignItems="flex-end">
             Not a pawember?{" "}
             <span>

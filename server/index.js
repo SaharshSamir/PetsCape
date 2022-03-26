@@ -3,15 +3,14 @@ const app = express();
 const dotenv = require("dotenv");
 dotenv.config({ path: ".env" });
 const port = process.env.PORT;
-// const cors = require("cors");
-// app.use(cors());
+const cors = require("cors");
+app.use(cors());
 
 //using middleware to parse json data
 app.use(express.json());
 
 require("./db/conn");
 app.use("/", require("./routes/UserRoutes"));
-
 
 app.listen(port, () => {
   console.log(`App listening on port http://localhost:${port}`);
