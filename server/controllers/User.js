@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const User = require("../models/UserSchema");
+const Request = require('../models/RequestSchema')
 
 const signup = async (req, res) => {
   var { name, email, password, cpassword} = req.body;
@@ -76,10 +77,46 @@ const jwtVerify = async (req, res) => {
   res.send(null);
 };
 
+const sendRequest = async(req,res)=>{
+  const {hostId,title,description,Sdate,Stime,Edate,Etime} = req.body;
+  try {
+    const from = {Sdate,Stime};
+    const to = {Edate,Etime};
+    const check = await Request.find({title:title});
+    console.log(check)
+    if(!(check.length==1)){
+      const newRequest = new Request({hostId,title,description,from,to,isPending:true});
+    const result = await newRequest.save();
+    if(result) {
+      const user = await User.findById(req.user._id);
+      console.log("user",user)
+      var userRequest=[]
+      console.log("user.UserRequest",user.userRequest)
+      if(user.userRequest) {
+      userRequest = user.userRequest;
+    }
+    userRequest.push({_id:result._id});
+    console.log("array",userRequest)
+      const updateUser = await User.findByIdAndUpdate(req.user._id,{userRequest});
+      if(updateUser)  res.status(200).send({ ok: true, message: "Request Sent Successfully!" });
+      console.log("here",updateUser)
+    }else{
+      res.status(200).send({ ok: false, message: "Request Already Exists" });
+    }
+    
+    }else{
+      res.status(200).send({ ok: false, message: "Bad Error" });
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 
 module.exports = {
   signup,
   login,
   jwtVerify,
+  sendRequest
 };

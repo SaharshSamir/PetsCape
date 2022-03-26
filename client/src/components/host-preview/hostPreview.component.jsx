@@ -1,5 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { Chip, Rating } from "@mui/material";
+import {useHistory} from 'react-router';
 import React from "react";
 import CustomButton from "../custom-button/customButton.component";
 
@@ -7,6 +8,7 @@ import { ImageContainer } from "./hostPreview.styles";
 import { Icon } from "@iconify/react";
 
 const HostPreview = ({ host }) => {
+  const History = useHistory();
   return (
     <Flex
       borderRadius="10px"
@@ -35,7 +37,8 @@ const HostPreview = ({ host }) => {
             icon={<Icon icon="ri:plant-fill" />}
           />
         </Box>
-        <CustomButton simple>VIEW PROFILE</CustomButton>
+        <CustomButton simple onClick={() => History.push("/")}>VIEW PROFILE</CustomButton>
+         
       </Flex>
       <Flex direction="column" justifyContent="space-between" marginLeft="auto" alignItems="end">
         <Icon
