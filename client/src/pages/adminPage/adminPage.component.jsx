@@ -13,23 +13,51 @@ const HostKey = ({ host }) => {
   );
 };
 
-const host = {
-  name: "Ema August",
-  profilePic:
-    "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-  email: "emaaugust@gmail.com",
-  hostBio:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eu ligula vel nisi tincidunt feugiat a ut nunc. Etiam a purus nec nisi porta vestibulum. Cras sagittis volutpat auctor. Cras blandit purus lectus, vel malesuada purus pretium feugiat. Sed eget faucibus ligula. Nullam consequat euismod purus, at rutrum odio porta non. Fusce imperdiet diam libero, sit amet maximus elit rhoncus ac.",
-  gender: "Female",
-  hostType: "Animal",
-  phone: "1234567890",
-  interest: "Animal",
-  idProof:"https://images.unsplash.com/photo-1638491103443-ee361905f6e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-};
+const host = [
+    {
+        name: "Ema August1",
+        profilePic:
+          "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+        email: "emaaugust@gmail.com",
+        hostBio:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eu ligula vel nisi tincidunt feugiat a ut nunc. Etiam a purus nec nisi porta vestibulum. Cras sagittis volutpat auctor. Cras blandit purus lectus, vel malesuada purus pretium feugiat. Sed eget faucibus ligula. Nullam consequat euismod purus, at rutrum odio porta non. Fusce imperdiet diam libero, sit amet maximus elit rhoncus ac.",
+        gender: "Female",
+        hostType: "Animal",
+        phone: "1234567890",
+        interest: "Animal",
+        idProof:"https://images.unsplash.com/photo-1638491103443-ee361905f6e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+      },
+      {
+        name: "Ema August2",
+        profilePic:
+          "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+        email: "emaaugust@gmail.com",
+        hostBio:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eu ligula vel nisi tincidunt feugiat a ut nunc. Etiam a purus nec nisi porta vestibulum. Cras sagittis volutpat auctor. Cras blandit purus lectus, vel malesuada purus pretium feugiat. Sed eget faucibus ligula. Nullam consequat euismod purus, at rutrum odio porta non. Fusce imperdiet diam libero, sit amet maximus elit rhoncus ac.",
+        gender: "Female",
+        hostType: "Animal",
+        phone: "1234567890",
+        interest: "Animal",
+        idProof:"https://images.unsplash.com/photo-1638491103443-ee361905f6e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+      },{
+        name: "Ema August3",
+        profilePic:
+          "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+        email: "emaaugust@gmail.com",
+        hostBio:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eu ligula vel nisi tincidunt feugiat a ut nunc. Etiam a purus nec nisi porta vestibulum. Cras sagittis volutpat auctor. Cras blandit purus lectus, vel malesuada purus pretium feugiat. Sed eget faucibus ligula. Nullam consequat euismod purus, at rutrum odio porta non. Fusce imperdiet diam libero, sit amet maximus elit rhoncus ac.",
+        gender: "Female",
+        hostType: "Animal",
+        phone: "1234567890",
+        interest: "Animal",
+        idProof:"https://images.unsplash.com/photo-1638491103443-ee361905f6e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+      }
+];
 
 const AdminPage = () => {
   const [selectedHost, setSelecetedHost] = useState(host);
   const [showModal,setShowModal] = useState(false);
+  const [hosts,setHosts] = useState(hosts);
 
 
     const toggleImageModal = () => {setShowModal(!showModal)}
