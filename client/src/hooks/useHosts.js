@@ -66,11 +66,19 @@ const useHosts = () => {
     return res.data.hosts;
   },[])
 
+
+  const getAllRequestsToHost = useCallback(async ()=>{
+    const res = await axiosInstance.get('/request/getAllRequestsToHost');
+    console.log(res,"these are my requests!");
+
+  })
+
   return {
     getSingleHost,
     sendRequest,
     hostVerify,
-    getAllHosts
+    getAllHosts,
+    getAllRequestsToHost
   };
 };
 export default useHosts;

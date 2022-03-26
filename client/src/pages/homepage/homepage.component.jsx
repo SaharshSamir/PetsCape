@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import ImageButton from "../../components/image-button/imageButton.component";
 import { HomeImage } from "./homepage.styles";
@@ -7,6 +7,7 @@ import HostOverview from "../../components/host-overview/hostOverview.component"
 import HostPreview from "../../components/host-preview/hostPreview.component";
 import { useNavigate } from "react-router-dom";
 import useHosts from "../../hooks/useHosts";
+import { Fade } from "react-reveal";
 
 // const hosts = [
 //   {
@@ -38,15 +39,14 @@ import useHosts from "../../hooks/useHosts";
 
 const Homepage = () => {
   const navigate = useNavigate();
-  const [hosts,setHosts] = useState([]);
-  const {getAllHosts} = useHosts();
+  const [hosts, setHosts] = useState([]);
+  const { getAllHosts } = useHosts();
 
-  useEffect(()=>{
-    getAllHosts()
-    .then(res => {
+  useEffect(() => {
+    getAllHosts().then((res) => {
       setHosts(res);
-    })
-  },[])
+    });
+  }, []);
 
   return (
     <Flex direction="column" alignItems="center">
@@ -83,22 +83,24 @@ const Homepage = () => {
         </Flex>
       </Box>
       <Box padding="20px" width="90%">
-        <Flex
-          flexDirection="row"
-          alignItems="center"
-          width="100%"
-          justifyContent="space-between"
-        >
-          <Text fontSize="2em" margin="10px 0 20px 0">
-            Our top care takers
-          </Text>
-          <Text>VIEW ALL</Text>
-        </Flex>
-        <Flex justifyContent="space-between">
-          {hosts.slice(0,5).map((host) => (
-            <HostOverview host={host} />
-          ))}
-        </Flex>
+        <Fade bottom>
+          <Flex
+            flexDirection="row"
+            alignItems="center"
+            width="100%"
+            justifyContent="space-between"
+          >
+            <Text fontSize="2em" margin="10px 0 20px 0">
+              Our top care takers
+            </Text>
+            <Text>VIEW ALL</Text>
+          </Flex>
+          <Flex justifyContent="space-between">
+            {hosts.slice(0, 5).map((host) => (
+              <HostOverview host={host} />
+            ))}
+          </Flex>
+        </Fade>
       </Box>
       <Box padding="20px" width="90%">
         <Text fontSize="2em" margin="10px 0 20px 0">

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState, useEffect } from "react";
 import { Flex, Text, Box, Image } from "@chakra-ui/react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Avatar, styled, Modal, TextField } from "@mui/material";
 import CustomButton from "../../components/custom-button/customButton.component";
+import useHosts from "../../hooks/useHosts";
 
 const requestData = {
   title: "This is a request title",
@@ -24,7 +25,6 @@ const ImageBox = styled("div")(({ url }) => ({
 
 const RequestOverview = ({ request }) => {
   const [isAccepted, setIsAccepted] = useState(false);
-
 
   return (
     <Accordion>
@@ -53,9 +53,9 @@ const RequestOverview = ({ request }) => {
                 "&:hover": { backgroundColor: "#009688" },
               }}
               simple
-                onClick={() => {
-                  setIsAccepted(true);
-                }}
+              onClick={() => {
+                setIsAccepted(true);
+              }}
             >
               ACCEPT
             </CustomButton>
@@ -73,16 +73,24 @@ const RequestOverview = ({ request }) => {
               REJECT
             </CustomButton>
           </Flex>
-          {
-              isAccepted?
-              <Flex direction="column" width="40%" margin="20px 0"> 
-                <Text fontSize="1.2em">Please set a rate and total amout for your quoatation</Text>
-                <TextField sx={{margin:'10px 0'}} label="Total amount" placeholder="$300"/>
-                <TextField sx={{margin:'10px 0'}} label="Fare" placeholder="$20/hr" />
-                <CustomButton simple>SET</CustomButton>
-
-              </Flex>:null
-          }
+          {isAccepted ? (
+            <Flex direction="column" width="40%" margin="20px 0">
+              <Text fontSize="1.2em">
+                Please set a rate and total amout for your quoatation
+              </Text>
+              <TextField
+                sx={{ margin: "10px 0" }}
+                label="Total amount"
+                placeholder="$300"
+              />
+              <TextField
+                sx={{ margin: "10px 0" }}
+                label="Fare"
+                placeholder="$20/hr"
+              />
+              <CustomButton simple>SET</CustomButton>
+            </Flex>
+          ) : null}
         </Flex>
       </AccordionDetails>
     </Accordion>
@@ -90,11 +98,21 @@ const RequestOverview = ({ request }) => {
 };
 
 const HostRequest = () => {
+  const [requests, setRequests] = useState([]);
+  const { getAllRequestsToHost } = useHosts();
+
+  useEffect(() => {
+    getAllRequestsToHost();
+  }, []);
+
   return (
     <Flex direction="column" alignItems="center">
       <Box padding="20px" width="90%">
         <Text fontSize="2em">YOUR RECENT REQUESTS:</Text>
         <Flex direction="column" padding="20px 0px">
+          {requests.length > 0
+            ? requests.map((request) => <RequestOverview request={request} />)
+            : null}
           <RequestOverview request={requestData} />
         </Flex>
       </Box>
