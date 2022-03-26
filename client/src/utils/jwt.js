@@ -1,5 +1,5 @@
-import axios from './axios';
-
+import axios from "./axios";
+import axiosInstance from "./axios";
 // ----------------------------------------------------------------------
 
 const isValidToken = (accessToken) => {
@@ -9,18 +9,15 @@ const isValidToken = (accessToken) => {
   return true;
 };
 
-
-
 const setSession = (accessToken) => {
   if (accessToken) {
-    console.log(accessToken,"here is the token");
-    localStorage.setItem('accessToken', accessToken);
-    axios.defaults.headers.common.Authorization = accessToken;
-
+    console.log(accessToken, "here is the token");
+    localStorage.setItem("accessToken", accessToken);
+    axiosInstance.defaults.headers.common.Authorization = accessToken;
   } else {
-    localStorage.removeItem('accessToken');
-    delete axios.defaults.headers.common.Authorization;
+    localStorage.removeItem("accessToken");
+    delete axiosInstance.defaults.headers.common.Authorization;
   }
 };
 
-export { isValidToken, setSession};
+export { isValidToken, setSession };

@@ -1,8 +1,8 @@
 const express = require("express");
-const Router = express.Router();
+const router = express.Router();
 
-Router.post("/makeBooking/createOrder");
-Router.post("/makeBooking/razor/callback");
-Router.post("/razor/callback");
+router.post("/makeBooking/createOrder");
+router.post("/makeBooking/razor/callback");
+router.post("/razor/callback");
 
-export default Router;
+module.exports = router;
