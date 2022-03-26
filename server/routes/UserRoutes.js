@@ -22,7 +22,6 @@ const { isAdmin } = require("../middlewares/isAdmin");
 const { isLoggedIn } = require("../middlewares/isLoggedIn");
 
 router.post("/signup", signup);
-router.post("/signup", signup);
 router.get("/jwtVerify", jwtVerify);
 router.post("/login", login);
 router.post("/createHost",isHost,createHost);

@@ -8,11 +8,11 @@ const { isLoggedIn } = require("../middlewares/isLoggedIn");
 const {getAllRequestsToHost,} = require('../controllers/User')
 const {acceptRequest,rejectRequest} = require('../controllers/Host')
 
-Router.post("/makeBooking/createOrder");
-Router.post("/makeBooking/razor/callback");
-Router.post("/razor/callback");
-Router.get('/getAllRequestsToHost',isHost,getAllRequestsToHost)
-Router.post('/acceptRequest',isHost,acceptRequest)
-Router.post('/rejectRequest',isHost,rejectRequest)
+router.post("/makeBooking/createOrder");
+router.post("/makeBooking/razor/callback");
+router.post("/razor/callback");
+router.get('/getAllRequestsToHost',isHost,getAllRequestsToHost)
+router.post('/acceptRequest',isHost,acceptRequest)
+router.post('/rejectRequest',isHost,rejectRequest)
 
-module.exports = Router;
+module.exports = router;

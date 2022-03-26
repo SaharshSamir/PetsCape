@@ -66,6 +66,7 @@ const Header = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const {logout} = useAuth();
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -126,7 +127,7 @@ const Header = () => {
             <DropDownKey text="My Profile" iconName="bx:user-circle" />
             <DropDownKey text="Messages" iconName="jam:messages-alt-f" />
             <DropDownKey text="View requests" iconName="bx:message-check" onClick={()=>{navigate('/host/requests')}} />
-            <DropDownKey text="Logout" iconName="ri:logout-circle-line" />
+            <DropDownKey text="Logout" iconName="ri:logout-circle-line" onClick={()=>{logout()}} />
           </Box>
         </Popover>
       </Flex>
