@@ -1,11 +1,10 @@
-const User = require("../models/UserSchema");
-require("dotenv").config();
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
+const User = require("../models/UserSchema");
 
 const signup = async (req, res) => {
-  var { name, email, phone, password, cpassword } = req.body;
-  if (!name || !email || !phone || !password || !cpassword)
+  var { name, email, password, cpassword} = req.body;
+  if (!name || !email || !password || !cpassword)
     res.status(422).send("Enter all fields");
   try {
     const userExists = await User.findOne({ email: email });
@@ -14,9 +13,10 @@ const signup = async (req, res) => {
     } else if (password !== cpassword) {
       res.status(422).send("Passwords do not match");
     } else {
+
       const hashedPassword = await bcrypt.hash(password, 10);
       password = hashedPassword;
-      const user = new User({ name, email, phone, password });
+      const user = new User({ name, email, password });
       const saveUser = await user.save();
       if (saveUser) res.status(200).send("User created successfully");
     }
@@ -70,9 +70,7 @@ const jwtVerify = async (req, res) => {
 
   const decodeToken = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
   if (decodeToken) {
-    const user = await User.findById(decodeToken._id).populate(
-      "myEnrolledCourses.courseID"
-    );
+    const user = await User.findById(decodeToken._id)
     return res.send({ user });
   }
   res.send(null);

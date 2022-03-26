@@ -10,7 +10,7 @@ const port = process.env.PORT;
 app.use(express.json());
 
 require("./db/conn");
-// app.use("/user", require("./routes/UserRoutes"));
+app.use("/", require("./routes/UserRoutes"));
 
 
 app.listen(port, () => {
