@@ -28,11 +28,11 @@ const userSchema = new mongoose.Schema({
   isDenied: {
     type: Boolean,
   },
-  idProof:{
-    type:String,
+  idProof: {
+    type: String,
   },
-  isIDProof:{
-    type:Boolean
+  isIDProof: {
+    type: Boolean,
   },
   profilePic: {
     type: String,
@@ -45,14 +45,14 @@ const userSchema = new mongoose.Schema({
   },
   posts: [
     {
-        type: Schema.Types.ObjectId,
-        ref: "POST",
+      type: Schema.Types.ObjectId,
+      ref: "POST",
     },
   ],
   hostRating: [
     {
-        type: Schema.Types.ObjectId,
-        ref: "RATING",
+      type: Schema.Types.ObjectId,
+      ref: "RATING",
     },
   ],
   isAdmin: {
@@ -63,18 +63,26 @@ const userSchema = new mongoose.Schema({
   },
   userRequest: [
     {
-        type: Schema.Types.ObjectId,
-        ref: "REQUEST",
+      type: Schema.Types.ObjectId,
+      ref: "REQUEST",
     },
   ],
   location: {
-    latitude:{
-      type:String,
+    latitude: {
+      type: String,
     },
-    longitude:{
-      type:String,
-    }
+    longitude: {
+      type: String,
+    },
   },
+  messages: [
+    {
+      otherUser: { type: Schema.Types.ObjectId },
+      messageBoxID: {
+        type: String,
+      },
+    },
+  ],
 });
 
 const User = mongoose.model("USER", userSchema);

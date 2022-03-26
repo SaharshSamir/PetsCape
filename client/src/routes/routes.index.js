@@ -69,6 +69,10 @@ export default function Router() {
         {
           path:'/chat/:hostId',
           element:<Chat/>
+        },
+        {
+          path:"/host/requests",
+          element:<HostRequests/>
         }
       ],
     },
@@ -102,4 +106,8 @@ const HostVerify = Loadable(
 );
 const Chat = Loadable(
   lazy(()=> import('../pages/chat/chat.component'))
+)
+
+const HostRequests = Loadable(
+  lazy(()=> import('../pages/host-requests/hostRequest.component'))
 )

@@ -37,9 +37,30 @@ const useHosts = () => {
       enqueueSnackbar("Some Error Occured", { variant: "error" });
     }
   };
+  const hostVerify = async (formData) => {
+    try {
+      const body = JSON.stringify(formData);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const res = await axiosInstance.post("/createHost", body, config);
+      console.log(res);
+      enqueueSnackbar("Your Profile has been sent successfully!", {
+        variant: "success",
+      });
+      navigate("/home");
+    } catch (e) {
+      console.log(e);
+      enqueueSnackbar("some error occurred!", { variant: "error" });
+    }
+  };
+
   return {
     getSingleHost,
     sendRequest,
+    hostVerify,
   };
 };
 export default useHosts;

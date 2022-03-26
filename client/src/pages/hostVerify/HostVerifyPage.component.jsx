@@ -4,6 +4,7 @@ import { Text } from "@chakra-ui/layout";
 import { TextField } from "@mui/material";
 import CustomButton from "../../components/custom-button/customButton.component";
 import { Checkbox } from "@mui/material";
+import useHosts from "../../hooks/useHosts";
 const HostVerify = () => {
   const [data, setData] = useState({
     phone: "",
@@ -15,6 +16,7 @@ const HostVerify = () => {
     latitude: "",
     longitute: "",
   });
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
@@ -30,7 +32,7 @@ const HostVerify = () => {
       longitute: val.coords.longitude,
     });
   };
-
+  const { hostVerify } = useHosts();
   const [animal, setAnimal] = useState(false);
   const [plants, setPlants] = useState(false);
   const [typeData, setTypeData] = useState({
@@ -95,25 +97,24 @@ const HostVerify = () => {
     widget.open();
   };
 
-
-  const handleSubmit = () =>{
+  const handleSubmit = () => {
     let a;
-    if(typeData.animal && typeData.plant){
-      a = "both"
-    }else if(typeData.animal){
-      a = "animal"
-    }else if(typeData.plant){
+    if (typeData.animal && typeData.plant) {
+      a = "both";
+    } else if (typeData.animal) {
+      a = "animal";
+    } else if (typeData.plant) {
       a = "plant";
-    }else{
+    } else {
       return;
     }
     const mainData = {
       ...data,
-      hostType:a
-    }
-
+      hostType: a,
+    };
+    hostVerify(mainData);
     console.log(mainData);
-  }
+  };
 
   return (
     <Flex justifyContent="center" alignItems="center">
@@ -168,8 +169,8 @@ const HostVerify = () => {
             <Checkbox
               // onChange={(e) => checkHandler(e)}
               checked={typeData.animal}
-              onChange={(e)=>{
-                handleCheck(e,'animal');
+              onChange={(e) => {
+                handleCheck(e, "animal");
               }}
               label="animals"
               color="success"
@@ -214,7 +215,7 @@ const HostVerify = () => {
               width: "80%",
               fontSize: "1.2rem",
             }}
-            onClick={() =>{
+            onClick={() => {
               handleSubmit();
             }}
           >

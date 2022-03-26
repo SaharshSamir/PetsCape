@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { Chip, Rating } from "@mui/material";
-import {useHistory} from 'react-router';
+import { useNavigate } from "react-router";
 import React from "react";
 import CustomButton from "../custom-button/customButton.component";
 
@@ -8,7 +8,7 @@ import { ImageContainer } from "./hostPreview.styles";
 import { Icon } from "@iconify/react";
 
 const HostPreview = ({ host }) => {
-  const History = useHistory();
+  const navigate = useNavigate();
   return (
     <Flex
       borderRadius="10px"
@@ -32,15 +32,23 @@ const HostPreview = ({ host }) => {
             icon={<Icon icon="ic:twotone-pets" />}
             sx={{ marginRight: "20px" }}
           />
-          <Chip
-            label="Plants"
-            icon={<Icon icon="ri:plant-fill" />}
-          />
+          <Chip label="Plants" icon={<Icon icon="ri:plant-fill" />} />
         </Box>
-        <CustomButton simple onClick={() => History.push("/")}>VIEW PROFILE</CustomButton>
-         
+        <CustomButton
+          simple
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          VIEW PROFILE
+        </CustomButton>
       </Flex>
-      <Flex direction="column" justifyContent="space-between" marginLeft="auto" alignItems="end">
+      <Flex
+        direction="column"
+        justifyContent="space-between"
+        marginLeft="auto"
+        alignItems="end"
+      >
         <Icon
           icon="ic:baseline-verified-user"
           color="#FF9800"
@@ -49,7 +57,10 @@ const HostPreview = ({ host }) => {
         <Flex direction="row" alignItems="baseline">
           {/* <Icon icon="bx:rupee" fontSize="2em" /> */}
 
-          <Text fontSize="2em" color="#4CAF50" fontWeight={600}> &#x20B9; 500</Text>
+          <Text fontSize="2em" color="#4CAF50" fontWeight={600}>
+            {" "}
+            &#x20B9; 500
+          </Text>
           <Text color="#4CAF50">/day</Text>
         </Flex>
       </Flex>

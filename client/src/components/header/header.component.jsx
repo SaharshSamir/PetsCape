@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
+
 const SearchBar = styled(TextField)(() => ({
   width: "50vw",
   "& input": {
@@ -31,7 +32,7 @@ const SearchBar = styled(TextField)(() => ({
   },
 }));
 
-const DropDownKey = ({ text, iconName }) => {
+const DropDownKey = ({ text, iconName,...props }) => {
   return (
     <Button
       sx={{
@@ -49,6 +50,7 @@ const DropDownKey = ({ text, iconName }) => {
         },
         borderRadius: "5px",
       }}
+      {...props}
     >
       <Icon icon={iconName} />
 
@@ -85,8 +87,10 @@ const Header = () => {
           fontSize="2em"
           lineHeight="100%"
           margin="0 30px 0 20px"
-          onClick={()=>{navigate('/home')}}
-          cursor='pointer'
+          onClick={() => {
+            navigate("/home");
+          }}
+          cursor="pointer"
         >
           Petscape
         </Text>
@@ -97,7 +101,9 @@ const Header = () => {
         />
       </Flex>
       <Flex direction="row" padding="0 20px">
-        <CustomButton>BECOME A HOST</CustomButton>
+        <CustomButton onClick={() => navigate("/hostVerify")}>
+          BECOME A HOST
+        </CustomButton>
 
         <Avatar
           src="https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"
@@ -123,6 +129,7 @@ const Header = () => {
           <Box padding="10px">
             <DropDownKey text="My Profile" iconName="bx:user-circle" />
             <DropDownKey text="Messages" iconName="jam:messages-alt-f" />
+            <DropDownKey text="View requests" iconName="bx:message-check" onClick={()=>{navigate('/host/requests')}} />
             <DropDownKey text="Logout" iconName="ri:logout-circle-line" />
           </Box>
         </Popover>
