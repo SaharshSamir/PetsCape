@@ -26,7 +26,7 @@ const useAuth = () => {
       setSession(token);
       dispatch(loginSuccess({ ...userLogin }));
       if (userLogin.isAdmin) {
-        navigate("/adminPage");
+        navigate("/admin");
       } else {
         navigate("/home");
       }
