@@ -14,13 +14,16 @@ const MainLayout = () => {
   const [isFullScreen, setIsFullScreen] = useState(true);
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const {isLoggedIn} = useAuth();
+  const {isLoggedIn,user} = useAuth();
 
   React.useEffect(() => {
     if (!isLoggedIn) {
       navigate("/login");
     } else {
-      if (pathname === "/") {
+      if(user?.isAdmin){
+        navigate('/admin');
+      }
+      else if (pathname === "/") {
         navigate("/home");
       } else {
         navigate(pathname);

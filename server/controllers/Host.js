@@ -1,5 +1,5 @@
 const User = require("../models/UserSchema");
-const Request = require('../models/RequestSchema')
+const Request = require("../models/RequestSchema");
 
 const createHost = async (req, res) => {
   const {
@@ -80,20 +80,24 @@ const getHost = async (req, res) => {
   }
 };
 
-const approveHost = async(req,res)=>{
-    try {
-        const {_id} = req.body;
-        
-        const host = await User.find({_id});
-        if(host[0].isPending){
-            const approve = await User.findByIdAndUpdate(_id,{isHost:true,isPending:false});
-            if(approve) return res.status(200).send({ ok: true, message: "Host Approved" });
-        }else{
-            return res.status(200).send({ ok: false, message:"Something is wrong" });
-        }
-    } catch (error) {
-        console.log(error)
+const approveHost = async (req, res) => {
+  try {
+    const { _id } = req.body;
+    console.log(_id, "here");
+    const host = await User.findById(_id);
+    if (host.isPending) {
+      host.isPending = false;
+      host.isHost = true;
+      const approve = await host.save();
+      // const approve = await User.findByIdAndUpdate(_id,{isHost:true,isPending:false});
+      if (approve)
+        return res.status(200).send({ ok: true, message: "Host Approved" });
+    } else {
+      return res.status(200).send({ ok: false, message: "Something is wrong" });
     }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const rejectHost = async (req, res) => {
@@ -125,42 +129,53 @@ const getAllHosts = async (req, res) => {
   }
 };
 
-const acceptRequest = async(req,res)=>{
-    const {reqId,total,rate} = req.body;
-    const price = {
-        total,rate
+const acceptRequest = async (req, res) => {
+  const { reqId, total, rate } = req.body;
+  const price = {
+    total,
+    rate,
+  };
+  try {
+    const request = await Request.findByIdAndUpdate(
+      { _id: reqId },
+      { isApproved: true },
+      price
+    );
+    if (request)
+      return res.status(200).send({ ok: true, message: "Request Approved!" });
+    else {
+      return res.status(200).send({ ok: false, message: "Error" });
     }
-    try {
-        const request = await Request.findByIdAndUpdate({_id:reqId},{isApproved:true},price);
-        if(request) return res.status(200).send({ ok: true, message:"Request Approved!" });
-        else{
-            return res.status(200).send({ ok: false, message:"Error" });
-        }
-    } catch (error) {
-        console.log(error)
-    }
-}
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-const rejectRequest = async(req,res)=>{
-    const {reqId} = req.body;
-    try {
-        const request = await Request.findByIdAndUpdate({_id:reqId},{isApproved:false},{isPending:false});
-        if(request) return res.status(200).send({ ok: true, message:"Request Rejected" });
-        else{
-            return res.status(200).send({ ok: false, message:"Error" });
-        }
-    } catch (error) {
-        console.log(error)
+const rejectRequest = async (req, res) => {
+  const { reqId } = req.body;
+  try {
+    const request = await Request.findByIdAndUpdate(
+      { _id: reqId },
+      { isApproved: false },
+      { isPending: false }
+    );
+    if (request)
+      return res.status(200).send({ ok: true, message: "Request Rejected" });
+    else {
+      return res.status(200).send({ ok: false, message: "Error" });
     }
-}
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
-    createHost,
-    getPendingHosts,
-    getHost,
-    approveHost,
-    rejectHost,
-    getAllHosts,
-    acceptRequest,
-    rejectRequest
-  };
+  createHost,
+  getPendingHosts,
+  getHost,
+  approveHost,
+  rejectHost,
+  getAllHosts,
+  acceptRequest,
+  rejectRequest,
+};

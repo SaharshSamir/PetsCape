@@ -25,6 +25,7 @@ const useAuth = () => {
       const { token, userLogin } = response.data;
       setSession(token);
       dispatch(loginSuccess({ ...userLogin }));
+      console.log(userLogin,"he he he");
       if (userLogin.isAdmin) {
         navigate("/admin");
       } else {
@@ -101,7 +102,8 @@ const useAuth = () => {
     registerAdmin,
     initializeAuth,
     deleteAdmin,
-    isLoggedIn
+    isLoggedIn,
+    user
   };
 };
 
