@@ -1,14 +1,16 @@
 import { Box, Flex, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
-import React from "react";
+import React, { useState } from "react";
 import DummyDp from "../../assets/DummyDp.png";
 import moment from "moment";
 import CustomButton from "../custom-button/customButton.component";
+import Payment from "../../pages/payment/Payment.component";
 const ClientRequestCard = ({ req }) => {
   let moment = require("moment");
   if ("default" in moment) {
     moment = moment["default"];
   }
+  const [click, setClick] = useState(true);
   console.log(req.hostId);
   return (
     <Box
@@ -68,6 +70,9 @@ const ClientRequestCard = ({ req }) => {
           <Text m="0.4rem">
             {moment(req.from.Edate).format("MMMM Do YYYY")}
           </Text>
+          <Text m="0.4rem" textAlign="center">
+            <span style={{ fontWeight: "600" }}>Price</span>: {req.price?.total}
+          </Text>
         </Flex>
         {/* <Text m="0.4rem">
           <span style={{ fontWeight: "600" }}>Total Price:</span> 88
@@ -80,7 +85,11 @@ const ClientRequestCard = ({ req }) => {
             >
               Chat with the Host!
             </CustomButton>
-            <CustomButton simple>Pay the Host!</CustomButton>
+            <Payment
+              state={click}
+              toggleState={setClick}
+              price={req.price?.total}
+            />
           </Flex>
         )}
       </Flex>
