@@ -1,14 +1,16 @@
 const User = require("../models/UserSchema");
 
 const createHost = async(req,res)=>{
-    const {phone, gender, idProof, profilePic,hostType,interest,hostBio} = req.body;
+    const {phone, gender, idProof, profilePic,hostType,interest,hostBio,latitude,longitude} = req.body;
     if (!phone || !gender || !idProof || !profilePic || !hostType || !interest || !hostBio)
     res.status(422).send("Enter all fields");
-
+    const location={
+        latitude,longitude
+    }
     try {
         const userExists = await User.findOne({ _id:req.user._id });
     if (userExists && !(req.user.isHost)) {
-        const updateDetails = await User.findByIdAndUpdate(req.user._id,{phone, gender, idProof, profilePic,hostType,interest,hostBio, isPending:true});
+        const updateDetails = await User.findByIdAndUpdate(req.user._id,{phone, gender, idProof, profilePic,hostType,interest,hostBio, isPending:true,location});
         if(updateDetails) return res.status(200).send({ ok: true, message: "Details Updated" });
     } else{
         return res
