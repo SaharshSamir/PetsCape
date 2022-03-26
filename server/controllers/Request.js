@@ -62,6 +62,10 @@ const verifyPayments = async (req, res) => {
       if (true) {
         console.log("here");
         const currentRequest = await Request.findById(request_id);
+        console.log("currentRequest._id: ")
+        console.log(currentRequest._id);
+        console.log("currentRequest: ")
+        console.log(currentRequest);
         console.log("printing id");
         console.log(currentRequest._id);
         let hostUser = await User.findById(currentRequest?.hostId);
@@ -69,7 +73,7 @@ const verifyPayments = async (req, res) => {
         const newCurrentRequeset = await currentRequest.save();
         console.log(newCurrentRequeset);
         // const hostUser = await User.findById()
-        // await Request.findByIdAndUpdate({_id: currentRequest._id}, {isPaymentDone:true});
+        await Request.findByIdAndUpdate(currentRequest._id, {isPaymentDone:true});
         // const hostUser = await Request
         let orderPayments 
         orderPayments = await Razor.payments.fetch(payment_id);
