@@ -15,7 +15,7 @@ export const Content = styled("div")(({fullScreen})=>({
     // width:fullScreen?'96vw':'77vw',
     // margin:fullScreen?'2vh 5vw':'2vh 0 2vh 23vw',
     transition:'all 0.2s ease-in',
-    padding:'10px',
+    // padding:'0px 0px 10px 0px',
     width:'100vw',
     maxHeight:"96vh",
     overflowY:'scroll',

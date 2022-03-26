@@ -12,4 +12,10 @@ code {
     monospace;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Hurricane&display=swap');
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Hurricane&family=Montserrat:wght@200;300;400;700;900&display=swap');
