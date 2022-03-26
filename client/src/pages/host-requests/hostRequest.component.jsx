@@ -225,6 +225,7 @@ const RequestOverview = ({ request }) => {
 
 
 
+};
 const HostRequest = () => {
   const [requests, setRequests] = useState([]);
   const { getAllRequestsToHost } = useHosts();
@@ -248,6 +249,6 @@ const HostRequest = () => {
       </Box>
     </Flex>
   );
-};}
+};
 
-export default HostRequest;
+export default  HostRequest;
