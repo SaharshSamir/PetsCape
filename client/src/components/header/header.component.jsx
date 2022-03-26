@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
+
 const SearchBar = styled(TextField)(() => ({
   width: "50vw",
   "& input": {
@@ -31,7 +32,7 @@ const SearchBar = styled(TextField)(() => ({
   },
 }));
 
-const DropDownKey = ({ text, iconName }) => {
+const DropDownKey = ({ text, iconName,...props }) => {
   return (
     <Button
       sx={{
@@ -49,6 +50,7 @@ const DropDownKey = ({ text, iconName }) => {
         },
         borderRadius: "5px",
       }}
+      {...props}
     >
       <Icon icon={iconName} />
 
@@ -127,6 +129,7 @@ const Header = () => {
           <Box padding="10px">
             <DropDownKey text="My Profile" iconName="bx:user-circle" />
             <DropDownKey text="Messages" iconName="jam:messages-alt-f" />
+            <DropDownKey text="View requests" iconName="bx:message-check" onClick={()=>{navigate('/host/requests')}} />
             <DropDownKey text="Logout" iconName="ri:logout-circle-line" />
           </Box>
         </Popover>

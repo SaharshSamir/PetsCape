@@ -8,7 +8,7 @@ import { ImageContainer } from "./hostPreview.styles";
 import { Icon } from "@iconify/react";
 
 const HostPreview = ({ host }) => {
-  const History = useNavigate();
+  const navigate = useNavigate();
   return (
     <Flex
       borderRadius="10px"
@@ -34,7 +34,12 @@ const HostPreview = ({ host }) => {
           />
           <Chip label="Plants" icon={<Icon icon="ri:plant-fill" />} />
         </Box>
-        <CustomButton simple onClick={() => History("/")}>
+        <CustomButton
+          simple
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           VIEW PROFILE
         </CustomButton>
       </Flex>

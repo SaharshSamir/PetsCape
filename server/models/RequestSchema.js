@@ -1,7 +1,13 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+
 const requestSchema = new mongoose.Schema({
     hostId:{
+        type: Schema.Types.ObjectId,
+        ref: "USER",
+        required:true
+    },
+    userId:{
         type: Schema.Types.ObjectId,
         ref: "USER",
         required:true
@@ -56,6 +62,10 @@ const requestSchema = new mongoose.Schema({
         type:Boolean
     },
     isApproved:{
+        type:Boolean,
+        default:false
+    },
+    isPaymentDone:{
         type:Boolean,
         default:false
     }
