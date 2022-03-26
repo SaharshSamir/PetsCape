@@ -71,6 +71,9 @@ export default function Router() {
           element:<Chat/>
         },
         {
+          path:'/payment',
+          element:<Payment/>
+        },{
           path:"/host/requests",
           element:<HostRequests/>
         }
@@ -107,7 +110,9 @@ const HostVerify = Loadable(
 const Chat = Loadable(
   lazy(()=> import('../pages/chat/chat.component'))
 )
-
+const Payment = Loadable(
+  lazy(()=> import('../pages/payment/Payment.component'))
+)
 const HostRequests = Loadable(
   lazy(()=> import('../pages/host-requests/hostRequest.component'))
 )
