@@ -32,9 +32,7 @@ const HostPreview = ({ host }) => {
           />
           <Chip
             label="Plants"
-            onClick={() => {}}
-            onDelete={() => {}}
-            deleteIcon={<Icon icon="ri:plant-fill" />}
+            icon={<Icon icon="ri:plant-fill" />}
           />
         </Box>
         <CustomButton simple>VIEW PROFILE</CustomButton>

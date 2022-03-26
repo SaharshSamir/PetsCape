@@ -5,6 +5,7 @@ import { HomeImage } from "./homepage.styles";
 import { Avatar } from "@mui/material";
 import HostOverview from "../../components/host-overview/hostOverview.component";
 import HostPreview from "../../components/host-preview/hostPreview.component";
+import { useNavigate } from "react-router-dom";
 
 const hosts = [
   {
@@ -35,6 +36,7 @@ const hosts = [
 ];
 
 const Homepage = () => {
+  const navigate = useNavigate();
   return (
     <Flex direction="column" alignItems="center">
       <HomeImage url="https://images.unsplash.com/photo-1581888227599-779811939961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" />
@@ -43,19 +45,39 @@ const Homepage = () => {
           Select your interest
         </Text>
         <Flex direction="row" width="100%" justifyContent="space-between">
-          <ImageButton url="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80">
+          <ImageButton
+            url="https://images.unsplash.com/photo-1522276498395-f4f68f7f8454?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+            onClick={() => {
+              navigate("/hosts/pets");
+            }}
+          >
             Pets
           </ImageButton>
-          <ImageButton url="https://images.unsplash.com/photo-1601985705806-5b9a71f6004f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80">
+          <ImageButton
+            url="https://images.unsplash.com/photo-1601985705806-5b9a71f6004f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+            onClick={() => {
+              navigate("/hosts/plants");
+            }}
+          >
             Plants
           </ImageButton>
-          <ImageButton url="https://images.unsplash.com/photo-1601758123927-4f7acc7da589?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80">
+          <ImageButton
+            url="https://images.unsplash.com/photo-1601758123927-4f7acc7da589?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+            onClick={() => {
+              navigate("/hosts/all");
+            }}
+          >
             Both
           </ImageButton>
         </Flex>
       </Box>
       <Box padding="20px" width="90%">
-        <Flex flexDirection="row" alignItems="center" width="100%" justifyContent="space-between" > 
+        <Flex
+          flexDirection="row"
+          alignItems="center"
+          width="100%"
+          justifyContent="space-between"
+        >
           <Text fontSize="2em" margin="10px 0 20px 0">
             Our top care takers
           </Text>

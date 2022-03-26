@@ -23,8 +23,8 @@ router.post("/createHost",isHost,createHost);
 router.get('/getPendingHosts',isAdmin,getPendingHosts)
 router.get('/getHost/:id',getHost);
 router.post('/approveHost',isAdmin,approveHost);
-router.post('/rejectHost',isAdmin,rejectHost)
-router.get('/getAllHosts',getAllHosts)
+router.post('/rejectHost',isAdmin,rejectHost);
+router.get('/getAllHosts',getAllHosts);
 
 
 module.exports = router;
