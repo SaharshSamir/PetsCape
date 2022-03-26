@@ -5,4 +5,4 @@ Router.post("/makeBooking/createOrder");
 Router.post("/makeBooking/razor/callback");
 Router.post("/razor/callback");
 
-export default Router;
+module.exports = Router;
