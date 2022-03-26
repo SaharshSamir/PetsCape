@@ -69,7 +69,11 @@ export default function Router() {
         {
           path:'/chat/:hostId',
           element:<Chat/>
-        }
+        },
+        {
+          path:'/payment',
+          element:<Payment/>
+        },
       ],
     },
   ]);
@@ -102,4 +106,7 @@ const HostVerify = Loadable(
 );
 const Chat = Loadable(
   lazy(()=> import('../pages/chat/chat.component'))
+)
+const Payment = Loadable(
+  lazy(()=> import('../pages/payment/Payment.component'))
 )

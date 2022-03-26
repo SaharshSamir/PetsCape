@@ -94,3 +94,14 @@ module.exports = {
     rejectHost,
     getAllHosts
   };
+//   {
+//     "phone": 12312323,
+//     "gender": "male",
+//     "idProof": "https://boo.io",
+//     "profilePic": "sdjhfksadhf",
+//     "hostType": "both",
+//     "interest": "no",
+//     "hostBio": "dskafhuiefjdskfneu. jkffjsdi fewiuffndsi feifdsfpue fsdifn weffsd fiewff dsfneuf ewfksdjf pifndskfneurf dskjnf eiuf dsjfewufbs f. fhskdjf feufh",
+//     "latitude": "18.494678950275866",
+//     "longitude": "74.01965520536156"
+// }
