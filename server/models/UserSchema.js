@@ -25,6 +25,12 @@ const userSchema = new mongoose.Schema({
   isPending: {
     type: Boolean,
   },
+  idProof:{
+    type:String,
+  },
+  isIDProof:{
+    type:Boolean
+  },
   profilePic: {
     type: String,
   },
