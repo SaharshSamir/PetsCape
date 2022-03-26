@@ -119,75 +119,77 @@ const AdminPage = () => {
             />
           ))}
         </Flex>
-        <Flex
-          direction="column"
-          width="75%"
-          height="100%"
-          padding="20px 30px 20px 0"
-          justifyContent="space-between"
-        >
-          <Box>
-            <Flex>
-              <Avatar
-                src={selectedHost?.profilePic}
-                sx={{ width: 200, height: 200 }}
-              />
-              <Flex direction="column" marginLeft="30px">
-                <Text fontSize="3em">{selectedHost?.name}</Text>
-                <Text fontSize="1.5em" margin="2px 0px 10px 0px">
-                  {selectedHost?.email}
-                </Text>
-                <Text fontSize="1.2em" margin="2px 0px 10px 0px">
-                  {selectedHost?.gender}
-                </Text>
-                <Text fontSize="1.2em">{selectedHost?.phone}</Text>
+        {hosts.length > 0 ? (
+          <Flex
+            direction="column"
+            width="75%"
+            height="100%"
+            padding="20px 30px 20px 0"
+            justifyContent="space-between"
+          >
+            <Box>
+              <Flex>
+                <Avatar
+                  src={selectedHost?.profilePic}
+                  sx={{ width: 200, height: 200 }}
+                />
+                <Flex direction="column" marginLeft="30px">
+                  <Text fontSize="3em">{selectedHost?.name}</Text>
+                  <Text fontSize="1.5em" margin="2px 0px 10px 0px">
+                    {selectedHost?.email}
+                  </Text>
+                  <Text fontSize="1.2em" margin="2px 0px 10px 0px">
+                    {selectedHost?.gender}
+                  </Text>
+                  <Text fontSize="1.2em">{selectedHost?.phone}</Text>
+                </Flex>
               </Flex>
-            </Flex>
-            <Text marginTop="20px">{selectedHost?.hostBio}</Text>
-            <CustomButton
-              sx={{ width: "25%", marginTop: "20px" }}
-              simple
-              onClick={toggleImageModal}
-            >
-              VIEW ID PROOF
-            </CustomButton>
-            <ImageModal
-              state={showModal}
-              toggleModal={toggleImageModal}
-              url={selectedHost?.idProof}
-            />
-          </Box>
+              <Text marginTop="20px">{selectedHost?.hostBio}</Text>
+              <CustomButton
+                sx={{ width: "25%", marginTop: "20px" }}
+                simple
+                onClick={toggleImageModal}
+              >
+                VIEW ID PROOF
+              </CustomButton>
+              <ImageModal
+                state={showModal}
+                toggleModal={toggleImageModal}
+                url={selectedHost?.idProof}
+              />
+            </Box>
 
-          <Flex direction="row" width="100%" justify="end">
-            <CustomButton
-              sx={{
-                width: "25%",
-                backgroundColor: "#009688",
-                marginRight: "30px",
-                "&:hover": { backgroundColor: "#009688" },
-              }}
-              simple
-              onClick={()=>{
-                approveHost({_id:selectedHost._id})
-              }}
-            >
-              ACCEPT
-            </CustomButton>
-            <CustomButton
-              sx={{
-                width: "25%",
-                backgroundColor: "#D32F2F",
-                "&:hover": { backgroundColor: "#D32F2F" },
-              }}
-              simple
-              onClick={()=>{
-                rejectHost({_id:selectedHost._id})
-              }}
-            >
-              REJECT
-            </CustomButton>
+            <Flex direction="row" width="100%" justify="end">
+              <CustomButton
+                sx={{
+                  width: "25%",
+                  backgroundColor: "#009688",
+                  marginRight: "30px",
+                  "&:hover": { backgroundColor: "#009688" },
+                }}
+                simple
+                onClick={() => {
+                  approveHost({ _id: selectedHost._id });
+                }}
+              >
+                ACCEPT
+              </CustomButton>
+              <CustomButton
+                sx={{
+                  width: "25%",
+                  backgroundColor: "#D32F2F",
+                  "&:hover": { backgroundColor: "#D32F2F" },
+                }}
+                simple
+                onClick={() => {
+                  rejectHost({ _id: selectedHost._id });
+                }}
+              >
+                REJECT
+              </CustomButton>
+            </Flex>
           </Flex>
-        </Flex>
+        ) : null}
       </Flex>
     </Box>
   );

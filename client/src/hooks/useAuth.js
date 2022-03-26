@@ -58,7 +58,7 @@ const useAuth = () => {
     const accessToken = window.localStorage.getItem("accessToken");
     if (isValidToken(accessToken)) {
       setSession(accessToken);
-      const response = await axiosInstance.get("/admin/verify");
+      const response = await axiosInstance.get("/jwtVerify");
       if (response) {
         const { user } = response.data;
         delete user.password;
@@ -101,6 +101,7 @@ const useAuth = () => {
     registerAdmin,
     initializeAuth,
     deleteAdmin,
+    isLoggedIn
   };
 };
 

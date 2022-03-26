@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import { useSelector } from "react-redux";
+import useAuth from "../hooks/useAuth";
 import { Page, Content } from "./mainLayout.styles";
 import Header from "../components/header/header.component";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -11,21 +12,21 @@ export const Context = React.createContext({});
 
 const MainLayout = () => {
   const [isFullScreen, setIsFullScreen] = useState(true);
-  const { isLoggedIn } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const {isLoggedIn} = useAuth();
 
-  // React.useEffect(() => {
-  //   if (!isLoggedIn) {
-  //     navigate("/landing");
-  //   } else {
-  //     if (pathname === "/") {
-  //       navigate("/home");
-  //     } else {
-  //       navigate(pathname);
-  //     }
-  //   }
-  // }, [isLoggedIn]);
+  React.useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      if (pathname === "/") {
+        navigate("/home");
+      } else {
+        navigate(pathname);
+      }
+    }
+  }, [isLoggedIn]);
 
   return (
     <Page>

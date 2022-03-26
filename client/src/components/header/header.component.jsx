@@ -4,6 +4,7 @@ import { Avatar, Button, TextField, styled, Popover } from "@mui/material";
 import CustomButton from "../custom-button/customButton.component";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const SearchBar = styled(TextField)(() => ({
   width: "50vw",

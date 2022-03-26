@@ -185,13 +185,11 @@ const HostVerify = () => {
           id="standard-basic"
           label="If Animal then which animal and if Plants then which all plants"
           variant="outlined"
-          name="gender"
           name="interest"
           onChange={(e) => onChangeHandler(e)}
         />
         <textarea
           placeholder="Tell us something about yourself"
-          name=""
           id=""
           cols="70"
           rows="10"

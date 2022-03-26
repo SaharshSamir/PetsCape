@@ -4,7 +4,7 @@ const User = require("../models/UserSchema");
 const isAdmin = async (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
-    return res.status(401).send("Access Denied, No token provided");
+    return res.status(200).send(token);
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
