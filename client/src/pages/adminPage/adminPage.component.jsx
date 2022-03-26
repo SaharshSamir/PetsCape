@@ -4,18 +4,21 @@ import { Avatar } from "@mui/material";
 import CustomButton from "../../components/custom-button/customButton.component";
 import ImageModal from "./viewImageModal";
 
-const HostKey = ({ host }) => {
+const HostKey = ({ host,selectHost }) => {
   return (
-    <Flex alignItems="center" padding="5px 10px" margin="15px" cursor="pointer">
+    <Flex alignItems="center" padding="5px 10px" margin="15px" cursor="pointer" onClick={()=>{
+        selectHost(host);
+    }}>
       <Avatar src={host?.profilePic} sx={{ width: 30, height: 30 }} />
       <Text marginLeft="20px">{host?.name}</Text>
     </Flex>
   );
 };
 
-const host = [
+const hostsData = [
     {
         name: "Ema August1",
+        id:1,
         profilePic:
           "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
         email: "emaaugust@gmail.com",
@@ -29,6 +32,7 @@ const host = [
       },
       {
         name: "Ema August2",
+        id:2,
         profilePic:
           "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
         email: "emaaugust@gmail.com",
@@ -41,6 +45,7 @@ const host = [
         idProof:"https://images.unsplash.com/photo-1638491103443-ee361905f6e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
       },{
         name: "Ema August3",
+        id:3,
         profilePic:
           "https://images.unsplash.com/photo-1520466809213-7b9a56adcd45?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
         email: "emaaugust@gmail.com",
@@ -55,9 +60,13 @@ const host = [
 ];
 
 const AdminPage = () => {
-  const [selectedHost, setSelecetedHost] = useState(host);
+  const [selectedHost, setSelecetedHost] = useState(hostsData[0]);
   const [showModal,setShowModal] = useState(false);
-  const [hosts,setHosts] = useState(hosts);
+  const [hosts,setHosts] = useState(hostsData);
+
+  const selectHost = (host) => {
+      setSelecetedHost(host)
+  }
 
 
     const toggleImageModal = () => {setShowModal(!showModal)}
@@ -78,7 +87,7 @@ const AdminPage = () => {
           borderRight="1px solid black"
         >
           {[...Array(6)].map((item) => (
-            <HostKey host={host} />
+            <HostKey host={hostsData[0]} selectHost={selectHost} />
           ))}
         </Flex>
         <Flex
