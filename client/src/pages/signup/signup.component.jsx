@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/image";
 import loginImg from "../../assets/loginImg.png";
 import { Text } from "@chakra-ui/layout";
 import { TextField } from "@mui/material";
 import CustomButton from "../../components/custom-button/customButton.component";
+import useAuth from "../../hooks/useAuth";
+
 const Login = () => {
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    cpassword: "",
+  });
+  const { registerAdmin } = useAuth();
+
+  const onChangeHandler = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    console.log(data);
+    registerAdmin(data);
+  };
   return (
     <Flex>
       <Box w="50%" h="100vh">
@@ -29,7 +47,7 @@ const Login = () => {
           borderRadius="10px"
           position="relative"
         >
-          <Text p="0.4rem" fontWeight="400" fontSize="1.8rem">
+          <Text p="0.4rem" m="1rem" fontWeight="400" fontSize="1.8rem">
             Create an account
           </Text>
           <TextField
@@ -37,24 +55,32 @@ const Login = () => {
             id="standard-basic"
             label="Name"
             variant="outlined"
+            name="name"
+            onChange={(e) => onChangeHandler(e)}
           />
           <TextField
             sx={{ marginBottom: "1rem", width: "80%" }}
             id="standard-basic"
             label="Email"
             variant="outlined"
+            name="email"
+            onChange={(e) => onChangeHandler(e)}
           />
           <TextField
             sx={{ width: "80%", marginBottom: "1rem" }}
             id="standard-basic"
             label="Pawsword"
             variant="outlined"
+            name="password"
+            onChange={(e) => onChangeHandler(e)}
           />
           <TextField
             sx={{ width: "80%" }}
             id="standard-basic"
             label="Comfirm Pawsword"
             variant="outlined"
+            name="cpassword"
+            onChange={(e) => onChangeHandler(e)}
           />
           <Box w="50%" mt="2rem">
             <CustomButton
@@ -63,6 +89,7 @@ const Login = () => {
                 width: "80%",
                 fontSize: "1.2rem",
               }}
+              onClick={(e) => onSubmitHandler(e)}
             >
               Sign Up
             </CustomButton>
