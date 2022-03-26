@@ -145,6 +145,14 @@ const Header = () => {
               }}
             />
             <DropDownKey
+              text="My Requests"
+              iconName="carbon:data-view-alt"
+              onClick={() => {
+                navigate("/myRequests");
+              }}
+            />
+
+            <DropDownKey
               text="Logout"
               iconName="ri:logout-circle-line"
               onClick={() => {
