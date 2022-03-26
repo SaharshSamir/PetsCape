@@ -158,6 +158,18 @@ function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
 
+const getAllRequest=async(req,res)=>{
+  const {id} = req.params;
+  try {
+    const data = Request.find({userId:id});
+    if(data) res.status(200).send({ ok: true, message: "All Requests by me", data });
+    else{
+      res.status(200).send({ ok: false, message: "Error" });
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 module.exports = {
   signup,
@@ -165,5 +177,6 @@ module.exports = {
   jwtVerify,
   sendRequest,
   getAllRequestsToHost,
-  getHostsNearMe
+  getHostsNearMe,
+  getAllRequest
 };
