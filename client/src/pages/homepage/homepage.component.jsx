@@ -46,6 +46,10 @@ const Homepage = () => {
   useEffect(() => {
     getAllHosts().then((res) => {
       setHosts(res);
+
+    });
+    getNearbyHosts(18.500601, 73.984230).then((res) => {
+      setNearByHosts(res);
     });
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
@@ -53,12 +57,13 @@ const Homepage = () => {
     } else {
     }
   }, []);
+  useEffect(()=>{
+      setNearByHosts(nearByHosts.sort((a,b)=>a.ans-b.ans));
+  },[nearByHosts]);
+  console.log(nearByHosts)
   const showPosition = (val) => {
     console.log("position");
     console.log(val.coords);
-    getNearbyHosts(val.coords.latitude, val.coords.longitude).then((res) => {
-      setNearByHosts(res);
-    });
   };
 
   return (

@@ -59,6 +59,8 @@ const FilterHost = () => {
   const [hosts, setHosts] = useState([]);
 
   const { getAllHosts } = useHosts();
+  const temp=getAllHosts();
+  const [val,setVal]=useState([]);
 
   useEffect(() => {
     getAllHosts().then((res) => {
