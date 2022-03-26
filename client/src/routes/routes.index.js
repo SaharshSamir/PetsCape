@@ -44,6 +44,10 @@ export default function Router() {
       element: <HostVerify />,
     },
     {
+      path: "/myRequests",
+      element: <UserRequests />,
+    },
+    {
       path: "/",
       element: <MainLayout />,
       children: [
@@ -62,21 +66,23 @@ export default function Router() {
         {
           path: "/host/:id",
           element: <HostProfile />,
-        },{
-          path:'/chat',
-          element:<Chat/>
         },
         {
-          path:'/chat/:hostId',
-          element:<Chat/>
+          path: "/chat",
+          element: <Chat />,
         },
         {
-          path:'/payment',
-          element:<Payment/>
-        },{
-          path:"/host/requests",
-          element:<HostRequests/>
-        }
+          path: "/chat/:hostId",
+          element: <Chat />,
+        },
+        {
+          path: "/payment",
+          element: <Payment />,
+        },
+        {
+          path: "/host/requests",
+          element: <HostRequests />,
+        },
       ],
     },
   ]);
@@ -107,12 +113,14 @@ const HostProfile = Loadable(
 const HostVerify = Loadable(
   lazy(() => import("../pages/hostVerify/HostVerifyPage.component"))
 );
-const Chat = Loadable(
-  lazy(()=> import('../pages/chat/chat.component'))
-)
+const Chat = Loadable(lazy(() => import("../pages/chat/chat.component")));
 const Payment = Loadable(
-  lazy(()=> import('../pages/payment/Payment.component'))
-)
+  lazy(() => import("../pages/payment/Payment.component"))
+);
 const HostRequests = Loadable(
-  lazy(()=> import('../pages/host-requests/hostRequest.component'))
-)
+  lazy(() => import("../pages/host-requests/hostRequest.component"))
+);
+
+const UserRequests = Loadable(
+  lazy(() => import("../pages/Request/UserRequests.component"))
+);
