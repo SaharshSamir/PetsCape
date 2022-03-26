@@ -7,8 +7,7 @@ export default function JwtProvider({ children }) {
   const dispatch = useDispatch();
   const {initializeAuth} = useAuth();
   useEffect(() => {
-    initializeAuth();
-    // initializeUser(dispatch);
+  initializeAuth();
   }, []);
 
   return <>{children}</>;

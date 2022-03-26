@@ -36,6 +36,14 @@ export default function Router() {
       element: <Signup />,
     },
     {
+      path: "/admin",
+      element: <AdminPage />,
+    },
+    {
+      path: "/hostVerify",
+      element: <HostVerify />,
+    },
+    {
       path: "/",
       element: <MainLayout />,
       children: [
@@ -48,9 +56,20 @@ export default function Router() {
           element: <Test />,
         },
         {
+          path: "/hosts/:type",
+          element: <FilterHosts />,
+        },
+        {
           path: "/hostProfile",
           element: <HostProfile />,
+        },{
+          path:'/chat',
+          element:<Chat/>
         },
+        {
+          path:'/chat/:hostId',
+          element:<Chat/>
+        }
       ],
     },
   ]);
@@ -69,4 +88,18 @@ const Home = Loadable(
 const Test = Loadable(lazy(() => import("../components/test/test.component")));
 const Login = Loadable(lazy(() => import("../pages/login/login.component")));
 const Signup = Loadable(lazy(() => import("../pages/signup/signup.component")));
-const HostProfile = Loadable(lazy(() => import("../pages/hostProfile/HostProfile.component")));
+const FilterHosts = Loadable(
+  lazy(() => import("../pages/filter-hosts/filterHosts.component"))
+);
+const AdminPage = Loadable(
+  lazy(() => import("../pages/adminPage/adminPage.component"))
+);
+const HostProfile = Loadable(
+  lazy(() => import("../pages/hostProfile/HostProfile.component"))
+);
+const HostVerify = Loadable(
+  lazy(() => import("../pages/hostVerify/HostVerifyPage.component"))
+);
+const Chat = Loadable(
+  lazy(()=> import('../pages/chat/chat.component'))
+)

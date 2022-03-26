@@ -1,12 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
-import Router from './routes/routes.index';
+import logo from "./logo.svg";
+import "./App.css";
+import Router from "./routes/routes.index";
 
+import JwtProvider from "./providers/jwtProvider";
 
 function App() {
   return (
     <div className="App">
-     <Router/>
+      <JwtProvider>
+        <Router />
+      </JwtProvider>
     </div>
   );
 }

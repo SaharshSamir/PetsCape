@@ -13,6 +13,7 @@ const isValidToken = (accessToken) => {
 
 const setSession = (accessToken) => {
   if (accessToken) {
+    console.log(accessToken,"here is the token");
     localStorage.setItem('accessToken', accessToken);
     axios.defaults.headers.common.Authorization = accessToken;
 
