@@ -36,6 +36,10 @@ export default function Router() {
       element: <Signup />,
     },
     {
+      path: "/hostVerify",
+      element: <HostVerify />,
+    },
+    {
       path: "/",
       element: <MainLayout />,
       children: [
@@ -65,3 +69,6 @@ const Home = Loadable(
 const Test = Loadable(lazy(() => import("../components/test/test.component")));
 const Login = Loadable(lazy(() => import("../pages/login/login.component")));
 const Signup = Loadable(lazy(() => import("../pages/signup/signup.component")));
+const HostVerify = Loadable(
+  lazy(() => import("../pages/hostVerify/HostVerifyPage.component"))
+);
