@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Flex, Box, Text } from "@chakra-ui/react";
 import { styled } from "@mui/material";
 import ImageButton from "../../components/image-button/imageButton.component";
 import HostPreview from "../../components/host-preview/hostPreview.component";
+import useHosts from "../../hooks/useHosts";
 
 export const BannerImage = styled("div")(({ url }) => ({
   width: "100%",
@@ -55,6 +56,47 @@ const FilterHost = () => {
     topRated: false,
     economical: false,
   });
+  const [hosts, setHosts] = useState([]);
+
+  const { getAllHosts } = useHosts();
+
+  useEffect(() => {
+    getAllHosts().then((res) => {
+      if (type == "pets") {
+        setHosts(
+          res.filter(
+            (host) => host.hostType === "Animal" || host.hostType === "both"
+          )
+        );
+      } else if (type == "plants") {
+        setHosts(
+          res.filter(
+            (host) => host.hostType === "Plants" || host.hostType === "both"
+          )
+        );
+      } else {
+        setHosts(res.filter((host) => host.hostType == "both"));
+      }
+    });
+  }, []);
+
+  // useEffect(() => {
+  //   if (type == "pets") {
+  //     setHosts(
+  //       hosts.filter(
+  //         (host) => host.hostType === "Animal" || host.hostType === "both"
+  //       )
+  //     );
+  //   } else if (type == "plants") {
+  //     setHosts(
+  //       hosts.filter(
+  //         (host) => host.hostType === "Plants" || host.hostType === "both"
+  //       )
+  //     );
+  //   } else {
+  //     setHosts(hosts.filter((host) => host.type.toLowerCase() == "both"));
+  //   }
+  // }, [type]);
 
   return (
     <Flex direction="column" alignItems="center">
@@ -105,7 +147,7 @@ const FilterHost = () => {
       </Box>
       <Box padding="20px" width="90%">
         <Text fontSize="2em" margin="10px 0 20px 0">
-          43 Results matching your filters{" "}
+          {hosts?.length} Results matching your filters{" "}
         </Text>
         <Flex direction="column">
           {hosts.map((host) => (

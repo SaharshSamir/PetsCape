@@ -6,10 +6,12 @@ import { Flex } from "@chakra-ui/layout";
 import { TextField } from "@mui/material";
 import { Input } from "@chakra-ui/input";
 import { Text } from "@chakra-ui/layout";
+import useAuth from "../../hooks/useAuth";
 
 import CustomButton from "../../components/custom-button/customButton.component";
 import useHosts from "../../hooks/useHosts";
 const HostFormModal = ({ state, toggleModal, url }) => {
+  const {user} = useAuth();
   const [host, setHost] = useState("");
   const [data, setData] = useState({
     title: "",
@@ -18,10 +20,16 @@ const HostFormModal = ({ state, toggleModal, url }) => {
     Stime: "",
     Edate: "",
     Etime: "",
-    hostId: window.location.pathname.split("/")[1],
+    hostId: window.location.pathname.split("/")[2],
+  userId:user?._id
   });
 
   const { sendRequest } = useHosts();
+
+
+  useEffect(()=>{
+    console.log( window.location.pathname.split("/")[2]);
+  },[])
 
   const onChangeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });

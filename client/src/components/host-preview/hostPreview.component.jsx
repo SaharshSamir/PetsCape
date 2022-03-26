@@ -37,7 +37,7 @@ const HostPreview = ({ host }) => {
         <CustomButton
           simple
           onClick={() => {
-            navigate("/");
+            navigate(`/host/${host._id}`);
           }}
         >
           VIEW PROFILE
