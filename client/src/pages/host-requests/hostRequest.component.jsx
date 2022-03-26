@@ -27,6 +27,9 @@ const RequestOverview = ({ request }) => {
   const [isAccepted, setIsAccepted] = useState(false);
   const [total, setTotal] = useState("");
   const [rate, setRate] = useState("");
+  const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
   const { approveUserRequest, rejectUserRequest } = useHosts();
   const approveRequest = () => {
@@ -45,6 +48,10 @@ const RequestOverview = ({ request }) => {
     };
     rejectUserRequest(data);
   };
+
+  const resetPay = ()=>{
+
+  }
 
   let A =() =>  (
     <Flex margin="20px 0 0 0 ">
@@ -77,6 +84,7 @@ const RequestOverview = ({ request }) => {
   );
 
   if (request.isApproved && request.isPending && !request.isPaymentDone) {
+  
     A = () =>  (
       <Flex  margin="20px 0 0 0 ">
         <CustomButton
@@ -100,11 +108,47 @@ const RequestOverview = ({ request }) => {
             "&:hover": { backgroundColor: "#D32F2F" },
           }}
           simple
-          onClick={()=>{}}
+          onClick={handleOpen}
         >
           RENEW PAY
         </CustomButton>
+        <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Flex direction="column" borderRadius={"5px"} padding={"20px"} background={"white"} width="40%" marginLeft={"auto"} marginRight={"auto"} marginTop={"2%"} >
+              <Text fontSize="1.2em">
+                Renew Pay
+              </Text>
+              <TextField
+                sx={{ margin: "10px 0" }}
+                label="Total amount"
+                placeholder="$300"
+                value={total}
+                onChange={(e) => {
+                  setTotal(e.target.value);
+                }}
+              />
+              <TextField
+                sx={{ margin: "10px 0" }}
+                label="Fare"
+                placeholder="$20/hr"
+                value={rate}
+                onChange={(e) => {
+                  setRate(e.target.value);
+                }}
+              />
+              <CustomButton simple onClick={resetPay}>
+                SET
+              </CustomButton>
+            </Flex>
+      </Modal>
       </Flex>
+
+
+
     );
   }
 
@@ -169,6 +213,8 @@ const RequestOverview = ({ request }) => {
     </Accordion>
   );
 };
+
+
 
 const HostRequest = () => {
   const [requests, setRequests] = useState([]);
