@@ -67,11 +67,11 @@ const getPendingHosts = async (req, res) => {
 const getHost = async (req, res) => {
   const { id } = req.params;
   try {
-    const currentHost = await User.find({ id });
-    if (currentHost[0].isHost)
+    const currentHost = await User.findOne({ _id: id });
+    if (currentHost.isHost)
       return res
         .status(200)
-        .send({ ok: true, message: "Got Host", currentHost: currentHost[0] });
+        .send({ ok: true, message: "Got Host", currentHost: currentHost });
     else {
       return res.status(200).send({ ok: false, message: "Not a Host" });
     }
@@ -169,30 +169,29 @@ const rejectRequest = async (req, res) => {
   }
 };
 
-const changePrice = async(req,res)=>{
-    const {reqId,rate,total} = req.body;
-    const price = {
-        total,rate
+const changePrice = async (req, res) => {
+  const { reqId, rate, total } = req.body;
+  const price = {
+    total,
+    rate,
+  };
+  try {
+    const change = await Request.findByIdAndUpdate({ _id: reqId }, { price });
+    if (change) res.status(200).send({ ok: true, message: "Price Changed!" });
+    else {
+      res.status(200).send({ ok: false, message: "Error" });
     }
-    try {
-        const change = await Request.findByIdAndUpdate({_id:reqId},{price})
-        if(change) res.status(200).send({ ok: true, message:"Price Changed!" });
-        else{
-            res.status(200).send({ ok: false, message:"Error" });
-        }
-    } catch (error) {
-        
-    }
-}
+  } catch (error) {}
+};
 
 module.exports = {
-    createHost,
-    getPendingHosts,
-    getHost,
-    approveHost,
-    rejectHost,
-    getAllHosts,
-    acceptRequest,
-    rejectRequest,
-    changePrice
-  };
+  createHost,
+  getPendingHosts,
+  getHost,
+  approveHost,
+  rejectHost,
+  getAllHosts,
+  acceptRequest,
+  rejectRequest,
+  changePrice,
+};

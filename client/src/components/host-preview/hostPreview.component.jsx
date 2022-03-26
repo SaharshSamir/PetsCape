@@ -3,7 +3,6 @@ import { Chip, Rating } from "@mui/material";
 import { useNavigate } from "react-router";
 import React from "react";
 import CustomButton from "../custom-button/customButton.component";
-
 import { ImageContainer } from "./hostPreview.styles";
 import { Icon } from "@iconify/react";
 

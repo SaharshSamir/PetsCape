@@ -1,5 +1,6 @@
 const Razorpay = require("razorpay");
 const Request = require("../models/RequestSchema");
+const User = require("../models/UserSchema");
 const Razor = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
     key_secret: process.env.RAZORPAY_KEY_SECRET,
@@ -12,10 +13,10 @@ try {
   console.log(err);
 }
 
-const makeBooking = (req, res) => {
-    const { amount } = req.body;
+const makeBooking = async (req, res) => {
+    const { price } = req.body;
     let options = {
-        amount,
+        amount: price,
         currency: "INR",
         receipt: "order_receipt_0.1",
     };
@@ -45,8 +46,7 @@ const razorCallback = (req, res) => {
 
 const verifyPayments = async (req, res) => {
     const razor_secret = process.env.WEBHOOK_SECRET;
-    const { user_id, course_id, payment_id, order_id, razor_signature } =
-      req.body;
+    const { user_id, request_id, payment_id, order_id, razor_signature, amount } = req.body;
     console.log(req.body);
     const razor_ids = `${order_id} | ${payment_id}`;
     try {
@@ -61,7 +61,32 @@ const verifyPayments = async (req, res) => {
       console.log(`Are they the same? ${generatedSignature === razor_signature}`);
       if (true) {
         console.log("here");
+        const currentRequest = await Request.findById(request_id);
+        console.log("currentRequest._id: ")
+        console.log(currentRequest._id);
+        console.log("currentRequest: ")
+        console.log(currentRequest);
+        console.log("printing id");
+        console.log(currentRequest._id);
+        let hostUser = await User.findById(currentRequest?.hostId);
+        currentRequest.isPaymentDone = true;
+        const newCurrentRequeset = await currentRequest.save();
+        console.log(newCurrentRequeset);
+        // const hostUser = await User.findById()
+        await Request.findByIdAndUpdate(currentRequest._id, {isPaymentDone:true});
+        // const hostUser = await Request
+        let orderPayments 
+        orderPayments = await Razor.payments.fetch(payment_id);
+        console.log(`orderPayments: ${JSON.stringify(orderPayments)}`);
 
+        let amountEarned = orderPayments?.amount - orderPayments?.amount_refunded || 0;
+        amountEarned = (amountEarned)? amountEarned : amount; 
+        newHost = {stats: {
+          totalEarnings: hostUser.stats.totalEarnings + amountEarned,
+          totalJobs: hostUser.stats.totalJobs + 1,
+        }}
+        hostUser = await User.findByIdAndUpdate(currentRequest?.hostId, newHost, {new: true});
+        // hostUser.
         // let currentUser = await User.findById(user_id);
         // let enrolledCourse = {
         //   courseID: course_id,
@@ -75,7 +100,7 @@ const verifyPayments = async (req, res) => {
         // });
         // return res.redirect("/dashboard");
         // console.log(JSON.stringify(updatedUser));
-        return res.status(200).json({ ok: true, updatedUser: updatedUser });
+        return res.status(200).json({ ok: true, newHostUser: hostUser});
       }
       // throw new Error("not valid");
     } catch (error) {
@@ -83,3 +108,5 @@ const verifyPayments = async (req, res) => {
       return res.redirect("/login");
     }
   };
+
+module.exports = {makeBooking, razorCallback, verifyPayments };
