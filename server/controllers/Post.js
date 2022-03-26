@@ -1,6 +1,7 @@
 const User = require("../models/UserSchema");
 const Request = require("../models/RequestSchema");
-const Post = require("../models/PostSchema")
+const Post = require("../models/PostSchema");
+const { post } = require("../routes/UserRoutes");
 
 const createPost = async(req,res)=>{
     const {image,caption} = req.body;
@@ -34,7 +35,7 @@ const likeAPI = async(req,res)=>{
 
 const getAllPosts = async(req,res)=>{
     try {
-        const getAll = await Post.find();
+        const getAll = await Post.find().populate("author");
         if(getAll) res.status(200).send({ ok: true, message: "All posts",getAll });
         else{
             res.status(200).send({ ok: false, message: "Failed" });
