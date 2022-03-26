@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const User = require("../models/UserSchema");
 const Request = require("../models/RequestSchema");
+const Chatroom = require("../models/ChatRoomSchema");
 
 const signup = async (req, res) => {
   var { name, email, password, cpassword } = req.body;
@@ -135,12 +136,10 @@ const getAllRequestsToHost = async (req, res) => {
 
 const getHostsNearMe = async (req, res) => {
   const { longitude, latitude } = req.params;
-  console.log(longitude, latitude);
   try {
     const AllHosts = await User.find({ isHost: true });
     let result = [];
     for (host of AllHosts) {
-      console.log(host.location.latitude);
       const ans = getDistance(
         host.location.latitude,
         host.location.longitude,
@@ -193,6 +192,40 @@ const getAllRequest = async (req, res) => {
   }
 };
 
+const isChatroomExist = async (req, res) => {
+  const { hostId, userId } = req.body;
+  const ifExist = await Chatroom.findOne({ hostId, userId });
+  if (ifExist) {
+    return res
+      .status(200)
+      .send({ ok: true, message: "chatroom already exist", chatroom: ifExist });
+  } else {
+    return res
+      .status(200)
+      .send({ ok: false, message: "chatroom does not exist" });
+  }
+};
+
+const createChat = async (req, res) => {
+  const { hostId, userId, messageBoxId } = req.body;
+
+  const chatroom = new Chatroom({ hostId, userId, messageBoxId });
+  await chatroom.save();
+  return res
+    .status(200)
+    .send({ ok: true, message: "chatoom created", chatroom });
+};
+
+
+const getChat = async (req,res) => {
+  const {id} = req.params;
+  const chatroom = await Chatroom.findById(id);
+  if(chatroom){
+    return res.send({ok:true,message:'chatroom found',chatroom});
+  }
+  return res.send({ok:false,message:'chatroom not found!'});
+}
+
 module.exports = {
   signup,
   login,
@@ -201,4 +234,7 @@ module.exports = {
   getAllRequestsToHost,
   getHostsNearMe,
   getAllRequest,
+  createChat,
+  isChatroomExist,
+  getChat
 };

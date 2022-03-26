@@ -72,7 +72,7 @@ export default function Router() {
           element: <Chat />,
         },
         {
-          path: "/chat/:hostId",
+          path: "/chat/:id",
           element: <Chat />,
         },
         {
@@ -116,7 +116,9 @@ const HostProfile = Loadable(
 const HostVerify = Loadable(
   lazy(() => import("../pages/hostVerify/HostVerifyPage.component"))
 );
-const Chat = Loadable(lazy(() => import("../pages/chat/chat.component")));
+const Chat = Loadable(
+  lazy(()=> import('../pages/chat/chat2.component'))
+)
 const Payment = Loadable(
   lazy(() => import("../pages/payment/Payment.component"))
 );

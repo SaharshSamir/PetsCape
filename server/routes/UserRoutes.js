@@ -7,6 +7,9 @@ const {
   jwtVerify,
   getHostsNearMe,
   getAllRequest,
+  createChat,
+  isChatroomExist,
+  getChat
 } = require("../controllers/User");
 
 const {
@@ -45,6 +48,9 @@ router.get("/getAllHosts", getAllHosts);
 router.get("/getHostsNearMe/:latitude/:longitude", getHostsNearMe);
 router.post("/addReview", addReview);
 router.get("/getAllRequest/:id", getAllRequest);
+router.post("/createChat",createChat );
+router.post('/isChatroomExist',isChatroomExist);
+router.get('/chatroom/:id',getChat)
 router.post("/createPost",isLoggedIn, createPost);
 router.post("/likeAPI",isLoggedIn, likeAPI);
 router.get("/getAllPosts",getAllPosts);
