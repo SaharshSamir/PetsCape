@@ -47,6 +47,10 @@ export default function Router() {
           path: "/test",
           element: <Test />,
         },
+        {
+          path: "/hostProfile",
+          element: <HostProfile />,
+        },
       ],
     },
   ]);
@@ -65,3 +69,4 @@ const Home = Loadable(
 const Test = Loadable(lazy(() => import("../components/test/test.component")));
 const Login = Loadable(lazy(() => import("../pages/login/login.component")));
 const Signup = Loadable(lazy(() => import("../pages/signup/signup.component")));
+const HostProfile = Loadable(lazy(() => import("../pages/hostProfile/HostProfile.component")));
