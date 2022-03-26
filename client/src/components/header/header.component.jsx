@@ -3,6 +3,7 @@ import { Flex, Text, Box } from "@chakra-ui/react";
 import { Avatar, Button, TextField, styled, Popover } from "@mui/material";
 import CustomButton from "../custom-button/customButton.component";
 import { Icon } from "@iconify/react";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = styled(TextField)(() => ({
   width: "50vw",
@@ -56,6 +57,7 @@ const DropDownKey = ({ text, iconName }) => {
 };
 
 const Header = () => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -82,6 +84,8 @@ const Header = () => {
           fontSize="2em"
           lineHeight="100%"
           margin="0 30px 0 20px"
+          onClick={()=>{navigate('/home')}}
+          cursor='pointer'
         >
           Petscape
         </Text>
