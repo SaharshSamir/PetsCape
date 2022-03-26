@@ -43,6 +43,16 @@ const userSchema = new mongoose.Schema({
   interest: {
     type: String,
   },
+  stats: {
+    totalEarnings: {
+      type: Number,
+      default: 0,
+    },
+    totalJobs: {
+      type: Number,
+      default: 0,
+    }
+  },
   posts: [
     {
       type: Schema.Types.ObjectId,
@@ -60,6 +70,16 @@ const userSchema = new mongoose.Schema({
   },
   hostBio: {
     type: String,
+  },
+  stats: {
+    totalEarnings: {
+      type: Number,
+      default: 0,
+    },
+    totalJobs: {
+      type: Number,
+      default: 0,
+    }
   },
   userRequest: [
     {

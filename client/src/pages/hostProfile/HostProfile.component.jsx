@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./HostProfile.css";
 import RoomIcon from "@mui/icons-material/Room";
 import Rating from "@mui/material/Rating";
@@ -8,6 +8,7 @@ import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import HostFormModal from "./HostFormModal";
 
 import { Flex } from "@chakra-ui/layout";
+import useHosts from "../../hooks/useHosts";
 const host = {
   displayPic: DummyDp,
   username: "Sarah Collins",
@@ -51,7 +52,15 @@ const host = {
     },
   ],
 };
+
 const HostProfile = () => {
+  const { getSingleHost } = useHosts();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const id = window.location.pathname.split("/")[2];
+    getSingleHost(id).then((res) => setUser(res));
+  }, []);
   const toggleImageModal = () => {
     setState(!state);
   };
@@ -61,12 +70,12 @@ const HostProfile = () => {
       <HostFormModal state={state} toggleModal={toggleImageModal} />
       <div className="header">
         <div className="dp-container">
-          <img src={host.displayPic} alt="display pic" />
+          <img src={user?.profilePic} alt="display pic" />
         </div>
         <div className="details-container">
           <div className="username-location-container">
             <div className="username-verified-container">
-              <p className="username">{host.username}</p>
+              <p className="username">{user?.name}</p>
               <VerifiedUserIcon
                 sx={{ color: "#FF9800", marginLeft: "2rem" }}
                 fontSize="large"

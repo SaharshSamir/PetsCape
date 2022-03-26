@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/image";
 import loginImg from "../../assets/loginImg.png";
@@ -6,7 +6,7 @@ import { Text } from "@chakra-ui/layout";
 import { TextField } from "@mui/material";
 import CustomButton from "../../components/custom-button/customButton.component";
 import useAuth from "../../hooks/useAuth";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [data, setData] = useState({
@@ -16,7 +16,7 @@ const Login = () => {
     cpassword: "",
   });
   const navigate = useNavigate();
-  const { registerAdmin,isLoggedIn } = useAuth();
+  const { registerAdmin, isLoggedIn } = useAuth();
 
   const onChangeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -27,11 +27,11 @@ const Login = () => {
     registerAdmin(data);
   };
 
-  useEffect(()=>{
-    if(isLoggedIn){
-      navigate('/home');
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/home");
     }
-  },[isLoggedIn])
+  }, [isLoggedIn]);
 
   return (
     <Flex>
@@ -81,6 +81,7 @@ const Login = () => {
             label="Pawsword"
             variant="outlined"
             name="password"
+            type="password"
             onChange={(e) => onChangeHandler(e)}
           />
           <TextField
@@ -89,6 +90,7 @@ const Login = () => {
             label="Comfirm Pawsword"
             variant="outlined"
             name="cpassword"
+            type="password"
             onChange={(e) => onChangeHandler(e)}
           />
           <Box w="50%" mt="2rem">

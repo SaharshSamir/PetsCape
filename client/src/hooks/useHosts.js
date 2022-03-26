@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-
 import { useSnackbar } from "notistack";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +14,7 @@ const useHosts = () => {
   const getSingleHost = async (id) => {
     try {
       const res = await axiosInstance.get(`/getHost/${id}`);
-      console.log(res.data.currentHost);
+      console.log(res.data);
       return res.data.currentHost;
     } catch (e) {
       console.log(e);
@@ -57,14 +56,14 @@ const useHosts = () => {
     }
   };
 
-  const getAllHosts = useCallback(async ()=>{
-    const res = await axiosInstance.get('/getAllHosts');
-    console.log(res,"in the get all hosts section!");
-    if(!res.data.ok){
+  const getAllHosts = useCallback(async () => {
+    const res = await axiosInstance.get("/getAllHosts");
+    console.log(res, "in the get all hosts section!");
+    if (!res.data.ok) {
       return;
     }
     return res.data.hosts;
-  },[])
+  }, []);
 
 
   const getAllRequestsToHost = useCallback(async ()=>{
