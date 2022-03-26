@@ -1,10 +1,18 @@
 import React, { useEffect } from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import { Avatar, Button, TextField, styled, Popover } from "@mui/material";
-import CustomButton from "../custom-button/customButton.component";
+import CustomButton, {SecondaryButton} from "../custom-button/customButton.component";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import "./styles.css";
+
+const secondaryButton = {
+  marginRight: "20px",
+  border:"#4CAF50",
+  color: "#4CAF50", 
+  backgroundColor: "white"
+}
 
 const SearchBar = styled(TextField)(() => ({
   width: "50vw",
@@ -101,6 +109,9 @@ const Header = () => {
         />
       </Flex>
       <Flex direction="row" padding="0 20px" alignItems="center">
+        <SecondaryButton style={{marginRight: "20px"}} className="secondary-btn" onClick={() => navigate("/")}>
+          Pet Lovers Zone{" "}
+        </SecondaryButton>
         {user.isHost ? (
           <Box color="#4CAF50">HOST</Box>
         ) : user.isPending ? (

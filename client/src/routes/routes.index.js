@@ -76,6 +76,9 @@ export default function Router() {
         },{
           path:"/host/requests",
           element:<HostRequests/>
+        },{
+          path:"/petZone",
+          element:<PetZone/>
         }
       ],
     },
@@ -115,4 +118,7 @@ const Payment = Loadable(
 )
 const HostRequests = Loadable(
   lazy(()=> import('../pages/host-requests/hostRequest.component'))
+)
+const PetZone = Loadable(
+  lazy(()=> import('../pages/petZone/PetZone.component'))
 )
