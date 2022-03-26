@@ -5,17 +5,9 @@ import Rating from "@mui/material/Rating";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import DummyDp from "../../assets/DummyDp.png";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/react";
-import { Button } from "@chakra-ui/button";
-import { useDisclosure } from "@chakra-ui/react";
+import HostFormModal from "./HostFormModal";
+
+import { Flex } from "@chakra-ui/layout";
 const host = {
   displayPic: DummyDp,
   username: "Sarah Collins",
@@ -60,9 +52,13 @@ const host = {
   ],
 };
 const HostProfile = () => {
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const toggleImageModal = () => {
+    setState(!state);
+  };
+  const [state, setState] = useState(false);
   return (
     <div>
+      <HostFormModal state={state} toggleModal={toggleImageModal} />
       <div className="header">
         <div className="dp-container">
           <img src={host.displayPic} alt="display pic" />
@@ -97,7 +93,7 @@ const HostProfile = () => {
           </div>
         </div>
         <div className="book-btn-container">
-          <button onClick={onOpen} className="book-me-btn">
+          <button onClick={() => setState(!state)} className="book-me-btn">
             Book Me
           </button>
         </div>
