@@ -4,8 +4,8 @@ import { loginSuccess, logoutSuccess, initialize } from "../redux/slices/auth";
 import { useSnackbar } from "notistack";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setSession, isValidToken } from "../utils/jwt";
-import axios from "../utils/axios";
+import { setSession, isValidToken } from "../routes/utils/jwt";
+import axios from "../routes/utils/axios";
 
 const useAuth = () => {
   const dispatch = useDispatch();

@@ -32,6 +32,10 @@ export default function Router() {
       element: <Login />,
     },
     {
+      path: "/signup",
+      element: <Signup />,
+    },
+    {
       path: "/",
       element: <MainLayout />,
       children: [
@@ -43,8 +47,6 @@ export default function Router() {
           path: "/test",
           element: <Test />,
         },
-        
-       
       ],
     },
   ]);
@@ -62,3 +64,4 @@ const Home = Loadable(
 
 const Test = Loadable(lazy(() => import("../components/test/test.component")));
 const Login = Loadable(lazy(() => import("../pages/login/login.component")));
+const Signup = Loadable(lazy(() => import("../pages/signup/signup.component")));
