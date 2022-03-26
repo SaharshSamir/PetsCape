@@ -5,9 +5,10 @@ import useAuth from "../hooks/useAuth";
 
 export default function JwtProvider({ children }) {
   const dispatch = useDispatch();
-  const {initializeAuth} = useAuth();
+  const { initializeAuth } = useAuth();
+
   useEffect(() => {
-  initializeAuth();
+    initializeAuth();
   }, []);
 
   return <>{children}</>;

@@ -7,6 +7,11 @@ const requestSchema = new mongoose.Schema({
         ref: "USER",
         required:true
     },
+    userId:{
+        type: Schema.Types.ObjectId,
+        ref: "USER",
+        required:true
+    },
     title:{
         type:String,
         required:true
@@ -57,6 +62,10 @@ const requestSchema = new mongoose.Schema({
         type:Boolean
     },
     isApproved:{
+        type:Boolean,
+        default:false
+    },
+    isPaymentDone:{
         type:Boolean,
         default:false
     }
