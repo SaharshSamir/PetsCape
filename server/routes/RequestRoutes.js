@@ -16,4 +16,4 @@ Router.post('/acceptRequest',isHost,acceptRequest)
 Router.post('/rejectRequest',isHost,rejectRequest)
 Router.post('/changePrice',isHost,changePrice)
 
-module.exports = router;
+module.exports = Router;

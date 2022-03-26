@@ -60,7 +60,7 @@ export default function Router() {
           element: <FilterHosts />,
         },
         {
-          path: "/hostProfile",
+          path: "/host/:id",
           element: <HostProfile />,
         },{
           path:'/chat',
