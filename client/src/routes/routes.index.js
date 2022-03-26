@@ -54,7 +54,12 @@ export default function Router() {
         {
           path:"/hosts/:type",
           element:<FilterHosts/>
-        }
+        },
+        {
+
+          path: "/hostProfile",
+          element: <HostProfile />,
+        },
       ],
     },
   ]);
@@ -75,3 +80,4 @@ const Login = Loadable(lazy(() => import("../pages/login/login.component")));
 const Signup = Loadable(lazy(() => import("../pages/signup/signup.component")));
 const FilterHosts = Loadable(lazy(()=>import("../pages/filter-hosts/filterHosts.component")));
 const AdminPage = Loadable(lazy(()=> import('../pages/adminPage/adminPage.component')));
+const HostProfile = Loadable(lazy(() => import("../pages/hostProfile/HostProfile.component")));
