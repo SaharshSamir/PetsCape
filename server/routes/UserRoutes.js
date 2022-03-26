@@ -4,7 +4,8 @@ const {
   signup,
   login,
   sendRequest,
-  jwtVerify
+  jwtVerify,
+  getHostsNearMe
 } = require("../controllers/User");
 
 const {
@@ -13,7 +14,7 @@ const {
   getHost,
   approveHost,
   rejectHost,
-  getAllHosts
+  getAllHosts,
   
 } = require("../controllers/Host");
 
@@ -34,6 +35,7 @@ router.get('/getAllHosts',getAllHosts)
 router.post('/sendRequest',isLoggedIn,sendRequest)
 router.post('/rejectHost',isAdmin,rejectHost);
 router.get('/getAllHosts',getAllHosts);
+router.get('/getHostsNearMe/:latitude/:longitude',getHostsNearMe);
 
 
 module.exports = router;
