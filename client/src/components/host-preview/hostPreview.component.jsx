@@ -1,13 +1,13 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { Chip, Rating } from "@mui/material";
-import {Navigate, useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router";
 import React from "react";
 import CustomButton from "../custom-button/customButton.component";
 import { ImageContainer } from "./hostPreview.styles";
 import { Icon } from "@iconify/react";
 
 const HostPreview = ({ host }) => {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <Flex
       borderRadius="10px"
@@ -19,7 +19,7 @@ const HostPreview = ({ host }) => {
       padding="10px"
     >
       <ImageContainer url={host.profilePic}>100m</ImageContainer>
-      <Flex direction="column" justifyContent="space-between">
+      <Flex direction="column" justifyContent="space-between" width="25%">
         <Box>
           <Text fontSize="2em">{host.name}</Text>
           <Rating value={5} readOnly size="large" />
@@ -31,15 +31,23 @@ const HostPreview = ({ host }) => {
             icon={<Icon icon="ic:twotone-pets" />}
             sx={{ marginRight: "20px" }}
           />
-          <Chip
-            label="Plants"
-            icon={<Icon icon="ri:plant-fill" />}
-          />
+          <Chip label="Plants" icon={<Icon icon="ri:plant-fill" />} />
         </Box>
-        <CustomButton simple onClick={() => Navigate("/hostProfile")}>VIEW PROFILE</CustomButton>
-         
+        <CustomButton
+          simple
+          onClick={() => {
+            navigate(`/host/${host._id}`);
+          }}
+        >
+          VIEW PROFILE
+        </CustomButton>
       </Flex>
-      <Flex direction="column" justifyContent="space-between" marginLeft="auto" alignItems="end">
+      <Flex
+        direction="column"
+        justifyContent="space-between"
+        marginLeft="auto"
+        alignItems="end"
+      >
         <Icon
           icon="ic:baseline-verified-user"
           color="#FF9800"
@@ -48,7 +56,10 @@ const HostPreview = ({ host }) => {
         <Flex direction="row" alignItems="baseline">
           {/* <Icon icon="bx:rupee" fontSize="2em" /> */}
 
-          <Text fontSize="2em" color="#4CAF50" fontWeight={600}> &#x20B9; 500</Text>
+          <Text fontSize="2em" color="#4CAF50" fontWeight={600}>
+            {" "}
+            &#x20B9; 500
+          </Text>
           <Text color="#4CAF50">/day</Text>
         </Flex>
       </Flex>

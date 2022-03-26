@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { Flex, Text, Box } from "@chakra-ui/react";
 import ImageButton from "../../components/image-button/imageButton.component";
 import { HomeImage } from "./homepage.styles";
@@ -6,37 +6,48 @@ import { Avatar } from "@mui/material";
 import HostOverview from "../../components/host-overview/hostOverview.component";
 import HostPreview from "../../components/host-preview/hostPreview.component";
 import { useNavigate } from "react-router-dom";
+import useHosts from "../../hooks/useHosts";
 
-const hosts = [
-  {
-    name: "Emma Watson",
-    profilePic:
-      "https://images.unsplash.com/photo-1486583474878-b16d8f2749b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-  },
-  {
-    name: "Jessica",
-    profilePic:
-      "https://images.unsplash.com/photo-1596076463549-b4d123456b6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-  },
-  {
-    name: "Emma Watson",
-    profilePic:
-      "https://images.unsplash.com/photo-1486583474878-b16d8f2749b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-  },
-  {
-    name: "Jessica",
-    profilePic:
-      "https://images.unsplash.com/photo-1596076463549-b4d123456b6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-  },
-  {
-    name: "Emma Watson",
-    profilePic:
-      "https://images.unsplash.com/photo-1486583474878-b16d8f2749b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-  },
-];
+// const hosts = [
+//   {
+//     name: "Emma Watson",
+//     profilePic:
+//       "https://images.unsplash.com/photo-1486583474878-b16d8f2749b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+//   },
+//   {
+//     name: "Jessica",
+//     profilePic:
+//       "https://images.unsplash.com/photo-1596076463549-b4d123456b6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+//   },
+//   {
+//     name: "Emma Watson",
+//     profilePic:
+//       "https://images.unsplash.com/photo-1486583474878-b16d8f2749b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+//   },
+//   {
+//     name: "Jessica",
+//     profilePic:
+//       "https://images.unsplash.com/photo-1596076463549-b4d123456b6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+//   },
+//   {
+//     name: "Emma Watson",
+//     profilePic:
+//       "https://images.unsplash.com/photo-1486583474878-b16d8f2749b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+//   },
+// ];
 
 const Homepage = () => {
   const navigate = useNavigate();
+  const [hosts,setHosts] = useState([]);
+  const {getAllHosts} = useHosts();
+
+  useEffect(()=>{
+    getAllHosts()
+    .then(res => {
+      setHosts(res);
+    })
+  },[])
+
   return (
     <Flex direction="column" alignItems="center">
       <HomeImage url="https://images.unsplash.com/photo-1581888227599-779811939961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" />
@@ -84,7 +95,7 @@ const Homepage = () => {
           <Text>VIEW ALL</Text>
         </Flex>
         <Flex justifyContent="space-between">
-          {hosts.map((host) => (
+          {hosts.slice(0,5).map((host) => (
             <HostOverview host={host} />
           ))}
         </Flex>

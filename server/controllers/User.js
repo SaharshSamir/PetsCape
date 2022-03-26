@@ -78,14 +78,14 @@ const jwtVerify = async (req, res) => {
 };
 
 const sendRequest = async(req,res)=>{
-  const {hostId,title,description,Sdate,Stime,Edate,Etime} = req.body;
+  const {hostId,title,description,Sdate,Stime,Edate,Etime,userId} = req.body;
   try {
     const from = {Sdate,Stime};
     const to = {Edate,Etime};
     const check = await Request.find({title:title});
     console.log(check)
     if(!(check.length==1)){
-      const newRequest = new Request({hostId,title,description,from,to,isPending:true});
+      const newRequest = new Request({hostId,title,description,from,to,isPending:true,userId});
     const result = await newRequest.save();
     if(result) {
       const user = await User.findById(req.user._id);
@@ -112,11 +112,71 @@ const sendRequest = async(req,res)=>{
   }
 }
 
+const getAllRequestsToHost = async(req,res)=>{
+  try {
+    const data = await Request.find({hostId:req.user._id});
+    if(data) res.status(200).send({ ok: true, message: "All requests", data });
+  } catch (error) {
+    
+  }
+}
 
+const getHostsNearMe = async(req,res) =>{
+  const {longitude,latitude} = req.params;
+  try {
+    const AllHosts = await User.find({isHost:true})
+    let result = []
+    for(host of AllHosts){
+      const ans = getDistance(host.location.latitude,host.location.longitude,latitude,longitude)
+      const obj = {ans,_id:host._id,name:host.name,email:host.email}
+      result.push(obj)
+    }
+
+    
+    res.status(200).send({ ok: true, message: "All Hosts within range", result });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const getDistance = (lat1,lon1,lat2,lon2)=>{
+
+var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+
+const getAllRequest=async(req,res)=>{
+  const {id} = req.params;
+  try {
+    const data = Request.find({userId:id});
+    if(data) res.status(200).send({ ok: true, message: "All Requests by me", data });
+    else{
+      res.status(200).send({ ok: false, message: "Error" });
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 module.exports = {
   signup,
   login,
   jwtVerify,
-  sendRequest
+  sendRequest,
+  getAllRequestsToHost,
+  getHostsNearMe,
+  getAllRequest
 };

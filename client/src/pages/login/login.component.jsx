@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/image";
 import loginImg from "../../assets/loginImg.png";
@@ -6,6 +6,7 @@ import { Text } from "@chakra-ui/layout";
 import { TextField } from "@mui/material";
 import CustomButton from "../../components/custom-button/customButton.component";
 import useAuth from "../../hooks/useAuth";
+import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
   const [data, setData] = useState({
@@ -14,7 +15,8 @@ const Login = () => {
     password: "",
     cpassword: "",
   });
-  const { login } = useAuth();
+  const navigate = useNavigate();
+  const { login,isLoggedIn } = useAuth();
   const onChangeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -23,6 +25,13 @@ const Login = () => {
     console.log(data);
     login(data);
   };
+
+  useEffect(()=>{
+    if(isLoggedIn){
+      navigate('/home');
+    }
+  },[isLoggedIn])
+
   return (
     <Flex>
       <Box w="50%" h="100vh">

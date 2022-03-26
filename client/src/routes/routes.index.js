@@ -60,7 +60,7 @@ export default function Router() {
           element: <FilterHosts />,
         },
         {
-          path: "/hostProfile",
+          path: "/host/:id",
           element: <HostProfile />,
         },{
           path:'/chat',
@@ -73,7 +73,10 @@ export default function Router() {
         {
           path:'/payment',
           element:<Payment/>
-        },
+        },{
+          path:"/host/requests",
+          element:<HostRequests/>
+        }
       ],
     },
   ]);
@@ -109,4 +112,7 @@ const Chat = Loadable(
 )
 const Payment = Loadable(
   lazy(()=> import('../pages/payment/Payment.component'))
+)
+const HostRequests = Loadable(
+  lazy(()=> import('../pages/host-requests/hostRequest.component'))
 )
