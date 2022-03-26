@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 const requestSchema = new mongoose.Schema({
-    user:{
+    hostId:{
         type: Schema.Types.ObjectId,
         ref: "USER",
         required:true
@@ -15,22 +15,22 @@ const requestSchema = new mongoose.Schema({
         required:true
     },
     from:{
-        date:{
+        Sdate:{
             type:String,
             required:true,
         },
-        time:{
-            type:Number,
+        Stime:{
+            type:String,
             required:true
         },
     },
     to:{
-        date:{
+        Edate:{
             type:String,
             required:true,
         },
-        time:{
-            type:Number,
+        Etime:{
+            type:String,
             required:true
         },
     },
@@ -51,7 +51,15 @@ const requestSchema = new mongoose.Schema({
     review:{
         type: Schema.Types.ObjectId,
         ref: "RATING",
+    },
+    isPending:{
+        type:Boolean
+    },
+    isApproved:{
+        type:Boolean,
+        default:false
     }
+
 });
 
 const Request = mongoose.model("REQUEST", requestSchema);
