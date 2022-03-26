@@ -6,7 +6,6 @@ import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
-
 const SearchBar = styled(TextField)(() => ({
   width: "50vw",
   "& input": {
@@ -32,7 +31,7 @@ const SearchBar = styled(TextField)(() => ({
   },
 }));
 
-const DropDownKey = ({ text, iconName,...props }) => {
+const DropDownKey = ({ text, iconName, ...props }) => {
   return (
     <Button
       sx={{
@@ -66,7 +65,7 @@ const Header = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const {logout} = useAuth();
+  const { logout } = useAuth();
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -130,8 +129,28 @@ const Header = () => {
           <Box padding="10px">
             <DropDownKey text="My Profile" iconName="bx:user-circle" />
             <DropDownKey text="Messages" iconName="jam:messages-alt-f" />
-            <DropDownKey text="View requests" iconName="bx:message-check" onClick={()=>{navigate('/host/requests')}} />
-            <DropDownKey text="Logout" iconName="ri:logout-circle-line" onClick={()=>{logout()}} />
+            <DropDownKey
+              text="View requests"
+              iconName="bx:message-check"
+              onClick={() => {
+                navigate("/host/requests");
+              }}
+            />
+            <DropDownKey
+              text="My Requests"
+              iconName="carbon:data-view-alt"
+              onClick={() => {
+                navigate("/myRequests");
+              }}
+            />
+
+            <DropDownKey
+              text="Logout"
+              iconName="ri:logout-circle-line"
+              onClick={() => {
+                logout();
+              }}
+            />
           </Box>
         </Popover>
       </Flex>
