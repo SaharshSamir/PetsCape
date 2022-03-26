@@ -15,7 +15,6 @@ const {
   approveHost,
   rejectHost,
   getAllHosts,
-  
 } = require("../controllers/Host");
 
 const { isHost } = require("../middlewares/isHost");
@@ -24,7 +23,7 @@ const { isLoggedIn } = require("../middlewares/isLoggedIn");
 
 router.post("/signup", signup);
 router.post("/signup", signup);
-router.post("/jwtVerify",jwtVerify);
+router.get("/jwtVerify", jwtVerify);
 router.post("/login", login);
 router.post("/createHost",isHost,createHost);
 router.get('/getPendingHosts',isAdmin,getPendingHosts)
@@ -36,6 +35,5 @@ router.post('/sendRequest',isLoggedIn,sendRequest)
 router.post('/rejectHost',isAdmin,rejectHost);
 router.get('/getAllHosts',getAllHosts);
 router.get('/getHostsNearMe/:latitude/:longitude',getHostsNearMe);
-
 
 module.exports = router;
