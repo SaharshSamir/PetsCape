@@ -25,6 +25,9 @@ const userSchema = new mongoose.Schema({
   isPending: {
     type: Boolean,
   },
+  isDenied: {
+    type: Boolean,
+  },
   idProof:{
     type:String,
   },
