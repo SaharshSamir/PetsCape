@@ -25,9 +25,99 @@ const ImageBox = styled("div")(({ url }) => ({
 
 const RequestOverview = ({ request }) => {
   const [isAccepted, setIsAccepted] = useState(false);
+  const [total, setTotal] = useState("");
+  const [rate, setRate] = useState("");
+
+  const { approveUserRequest, rejectUserRequest } = useHosts();
+  const approveRequest = () => {
+    console.log(total, rate, request._id);
+    const data = {
+      total,
+      rate,
+      reqId: request._id,
+    };
+    approveUserRequest(data);
+  };
+
+  const rejectRequest = () => {
+    const data = {
+      reqId: request._id,
+    };
+    rejectUserRequest(data);
+  };
+
+  let A =() =>  (
+    <Flex margin="20px 0 0 0 ">
+      <CustomButton
+        sx={{
+          width: "25%",
+          backgroundColor: "#009688",
+          marginRight: "30px",
+          "&:hover": { backgroundColor: "#009688" },
+        }}
+        simple
+        onClick={() => {
+          setIsAccepted(true);
+        }}
+      >
+        ACCEPT
+      </CustomButton>
+      <CustomButton
+        sx={{
+          width: "25%",
+          backgroundColor: "#D32F2F",
+          "&:hover": { backgroundColor: "#D32F2F" },
+        }}
+        simple
+        onClick={rejectRequest}
+      >
+        REJECT
+      </CustomButton>
+    </Flex>
+  );
+
+  if (request.isApproved && request.isPending && !request.isPaymentDone) {
+    A = () =>  (
+      <Flex  margin="20px 0 0 0 ">
+        <CustomButton
+          sx={{
+            width: "25%",
+            backgroundColor: "#009688",
+            marginRight: "30px",
+            "&:hover": { backgroundColor: "#009688" },
+          }}
+          simple
+          onClick={() => {
+            // setIsAccepted(true);
+          }}
+        >
+          CHAT
+        </CustomButton>
+        <CustomButton
+          sx={{
+            width: "25%",
+            backgroundColor: "#D32F2F",
+            "&:hover": { backgroundColor: "#D32F2F" },
+          }}
+          simple
+          onClick={()=>{}}
+        >
+          RENEW PAY
+        </CustomButton>
+      </Flex>
+    );
+  }
+
+  if (!request.isPending) {
+    A = () =>  (
+      <Flex  margin="20px 0 0 0 ">
+       <Text fontSize="1.5em" color="#D32F2F">YOU HAVE REJECTED THIS REQUEST !</Text>
+      </Flex>
+    );
+  }
 
   return (
-    <Accordion>
+    <Accordion sx={{ margin: "10px 0" }}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -42,37 +132,10 @@ const RequestOverview = ({ request }) => {
         <Flex width="100%" direction="column">
           <Text margin="0 0 20px 0">{request.description}</Text>
           <Text fontWeight={700}>
-            From 23 March 2022, 8:00 pm to 26 March 2022, 8:00 pm{" "}
+            From {request.from?.Sdate}, {request.from?.Stime} to{" "}
+            {request.to?.Edate}, {request.to?.Etime}
           </Text>
-          <Flex margin="20px 0 0 0 ">
-            <CustomButton
-              sx={{
-                width: "25%",
-                backgroundColor: "#009688",
-                marginRight: "30px",
-                "&:hover": { backgroundColor: "#009688" },
-              }}
-              simple
-              onClick={() => {
-                setIsAccepted(true);
-              }}
-            >
-              ACCEPT
-            </CustomButton>
-            <CustomButton
-              sx={{
-                width: "25%",
-                backgroundColor: "#D32F2F",
-                "&:hover": { backgroundColor: "#D32F2F" },
-              }}
-              simple
-              //   onClick={() => {
-              //     rejectHost({ _id: selectedHost._id });
-              //   }}
-            >
-              REJECT
-            </CustomButton>
-          </Flex>
+         <A/>
           {isAccepted ? (
             <Flex direction="column" width="40%" margin="20px 0">
               <Text fontSize="1.2em">
@@ -82,13 +145,23 @@ const RequestOverview = ({ request }) => {
                 sx={{ margin: "10px 0" }}
                 label="Total amount"
                 placeholder="$300"
+                value={total}
+                onChange={(e) => {
+                  setTotal(e.target.value);
+                }}
               />
               <TextField
                 sx={{ margin: "10px 0" }}
                 label="Fare"
                 placeholder="$20/hr"
+                value={rate}
+                onChange={(e) => {
+                  setRate(e.target.value);
+                }}
               />
-              <CustomButton simple>SET</CustomButton>
+              <CustomButton simple onClick={approveRequest}>
+                SET
+              </CustomButton>
             </Flex>
           ) : null}
         </Flex>
@@ -102,7 +175,9 @@ const HostRequest = () => {
   const { getAllRequestsToHost } = useHosts();
 
   useEffect(() => {
-    getAllRequestsToHost();
+    getAllRequestsToHost().then((res) => {
+      setRequests(res);
+    });
   }, []);
 
   return (
@@ -113,7 +188,7 @@ const HostRequest = () => {
           {requests.length > 0
             ? requests.map((request) => <RequestOverview request={request} />)
             : null}
-          <RequestOverview request={requestData} />
+          {/* <RequestOverview request={requestData} /> */}
         </Flex>
       </Box>
     </Flex>

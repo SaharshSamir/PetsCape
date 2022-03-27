@@ -156,8 +156,7 @@ const rejectRequest = async (req, res) => {
   try {
     const request = await Request.findByIdAndUpdate(
       { _id: reqId },
-      { isApproved: false },
-      { isPending: false }
+      { isApproved: false, isPending: false }
     );
     if (request)
       return res.status(200).send({ ok: true, message: "Request Rejected" });
