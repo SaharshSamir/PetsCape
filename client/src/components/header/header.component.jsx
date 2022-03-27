@@ -109,7 +109,7 @@ const Header = () => {
         />
       </Flex>
       <Flex direction="row" padding="0 20px" alignItems="center">
-        <SecondaryButton style={{marginRight: "20px"}} className="secondary-btn" onClick={() => navigate("/")}>
+        <SecondaryButton style={{marginRight: "20px"}} className="secondary-btn" onClick={() => navigate("/petZone")}>
           Pet Lovers Zone{" "}
         </SecondaryButton>
         {user.isHost ? (
