@@ -119,7 +119,10 @@ const HostFormModal = ({ state, toggleModal, url }) => {
             </Flex>
           </Flex>
           <CustomButton
-            onClick={(e) => onSubmitHandler(e)}
+            onClick={(e) => {
+              onSubmitHandler(e)
+              toggleModal()
+            }}
             sx={{ marginTop: "1.2rem", fontSize: "1.2rem" }}
           >
             Book now!

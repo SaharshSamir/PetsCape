@@ -71,7 +71,7 @@ const jwtVerify = async (req, res) => {
 
   const decodeToken = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
   if (decodeToken) {
-    const user = await User.findById(decodeToken._id)
+    const user = await User.findById(decodeToken._id).populate('userRequest');
     return res.send({ user });
   }
   res.send(null);
