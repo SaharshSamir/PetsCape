@@ -216,15 +216,14 @@ const createChat = async (req, res) => {
     .send({ ok: true, message: "chatoom created", chatroom });
 };
 
-
-const getChat = async (req,res) => {
-  const {id} = req.params;
+const getChat = async (req, res) => {
+  const { id } = req.params;
   const chatroom = await Chatroom.findById(id);
-  if(chatroom){
-    return res.send({ok:true,message:'chatroom found',chatroom});
+  if (chatroom) {
+    return res.send({ ok: true, message: "chatroom found", chatroom });
   }
-  return res.send({ok:false,message:'chatroom not found!'});
-}
+  return res.send({ ok: false, message: "chatroom not found!" });
+};
 
 module.exports = {
   signup,
@@ -236,5 +235,5 @@ module.exports = {
   getAllRequest,
   createChat,
   isChatroomExist,
-  getChat
+  getChat,
 };
