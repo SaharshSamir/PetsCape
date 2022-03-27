@@ -7,7 +7,7 @@ import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import HostFormModal from "./HostFormModal";
 import useHosts from "../../hooks/useHosts";
 import useAuth from "../../hooks/useAuth";
-
+import {Box} from '@chakra-ui/react'
 
 
 const HostProfile = () => {
@@ -27,7 +27,7 @@ const HostProfile = () => {
   };
   const [state, setState] = useState(false);
   return (
-    <div>
+    <Box borderRadius={"10px"} boxShadow={"2px 2px 10px #D3D3D3"} margin={"5%"} p={"0.5rem"}>
       <HostFormModal state={state} toggleModal={toggleImageModal} />
       <div className="header">
         <div className="dp-container">
@@ -63,11 +63,7 @@ const HostProfile = () => {
           </div>
         </div>
         <div className="book-btn-container">
-         
-        </div>
-      </div>
-
-    { !requested ? (
+        { !requested ? (
             <>
             <button align="center" onClick={() => {setState(!state)
             }} className="book-me-btn">
@@ -80,8 +76,12 @@ const HostProfile = () => {
             </>
           )
 }
+        </div>
+      </div>
+
+    
    
-    </div>
+    </Box>
   );
 };
 

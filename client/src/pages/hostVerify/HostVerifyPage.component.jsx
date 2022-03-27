@@ -30,7 +30,7 @@ const HostVerify = () => {
     setData({
       ...data,
       latitude: val.coords.latitude,
-      longitute: val.coords.longitude,
+      longitude: val.coords.longitude,
     });
   };
   const { hostVerify } = useHosts();
