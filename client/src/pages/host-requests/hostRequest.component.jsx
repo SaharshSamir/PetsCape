@@ -8,6 +8,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Avatar, styled, Modal, TextField } from "@mui/material";
 import CustomButton from "../../components/custom-button/customButton.component";
 import useHosts from "../../hooks/useHosts";
+import useChat from '../../hooks/useChat';
+import {useNavigate} from 'react-router-dom';
 
 const requestData = {
   title: "This is a request title",
@@ -27,6 +29,8 @@ const RequestOverview = ({ request }) => {
   const [isAccepted, setIsAccepted] = useState(false);
   const [total, setTotal] = useState("");
   const [rate, setRate] = useState("");
+  const {createChatRoom} = useChat();
+  const navigate = useNavigate();
 
   const { approveUserRequest, rejectUserRequest } = useHosts();
   const approveRequest = () => {
@@ -45,6 +49,16 @@ const RequestOverview = ({ request }) => {
     };
     rejectUserRequest(data);
   };
+
+
+  const handelChatClick = () => {
+      console.log(request.userId,request.hostId);
+      createChatRoom(request.userId,request.hostId)
+      .then(res => {
+          navigate(`/chat/${res.chatroomId}`)
+      })
+
+  }
 
   let A =() =>  (
     <Flex margin="20px 0 0 0 ">
@@ -87,9 +101,7 @@ const RequestOverview = ({ request }) => {
             "&:hover": { backgroundColor: "#009688" },
           }}
           simple
-          onClick={() => {
-            // setIsAccepted(true);
-          }}
+          onClick={handelChatClick}
         >
           CHAT
         </CustomButton>
