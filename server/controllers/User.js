@@ -71,7 +71,9 @@ const jwtVerify = async (req, res) => {
 
   const decodeToken = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
   if (decodeToken) {
-    const user = await User.findById(decodeToken._id).populate("userRequest");
+    const user = await User.findById(decodeToken._id)
+      .populate("userRequest")
+      .populate({ path: "userRequest", populate: "hostId" });
     return res.send({ user });
   }
   res.send(null);
@@ -168,6 +170,7 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
       Math.sin(dLon / 2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   var d = R * c; // Distance in km
+  console.log(d);
   return d;
 };
 

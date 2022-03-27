@@ -21,6 +21,12 @@ const {
   getAllHosts,
 } = require("../controllers/Host");
 
+const {
+  createPost,
+  likeAPI,
+  getAllPosts
+} = require("../controllers/Post")
+
 const { addReview } = require("../controllers/Review");
 
 const { isHost } = require("../middlewares/isHost");
@@ -45,5 +51,8 @@ router.get("/getAllRequest/:id", getAllRequest);
 router.post("/createChat",createChat );
 router.post('/isChatroomExist',isChatroomExist);
 router.get('/chatroom/:id',getChat)
+router.post("/createPost",isLoggedIn, createPost);
+router.post("/likeAPI",isLoggedIn, likeAPI);
+router.get("/getAllPosts",getAllPosts);
 
 module.exports = router;
