@@ -65,11 +65,42 @@ const useHosts = () => {
     return res.data.hosts;
   }, []);
 
+  const getAllRequestsToHost = useCallback(async () => {
+    const res = await axiosInstance.get("/request/getAllRequestsToHost");
+    console.log(res, "these are my requests!");
+    if (!res.data.ok) return;
+
+    return res.data.data;
+  });
+
+
+  const approveUserRequest = useCallback(async(data)=>{
+    const res = await axiosInstance.post('request/acceptRequest',data);
+    if(!res.data.ok){
+      enqueueSnackbar(res.data.message,{variant:'error'});
+      return;
+    }
+    enqueueSnackbar(res.data.message,{variant:'success'});
+  })
+
+
+  const rejectUserRequest = useCallback(async(data)=>{
+    const res = await axiosInstance.post('request/rejectRequest',data);
+    if(!res.data.ok){
+      enqueueSnackbar(res.data.message,{variant:'error'});
+      return;
+    }
+    enqueueSnackbar(res.data.message,{variant:'success'});
+  })
+
   return {
     getSingleHost,
     sendRequest,
     hostVerify,
     getAllHosts,
+    getAllRequestsToHost,
+    approveUserRequest,
+    rejectUserRequest
   };
 };
 export default useHosts;

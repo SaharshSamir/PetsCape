@@ -3,64 +3,25 @@ import "./HostProfile.css";
 import RoomIcon from "@mui/icons-material/Room";
 import Rating from "@mui/material/Rating";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import DummyDp from "../../assets/DummyDp.png";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import HostFormModal from "./HostFormModal";
-
-import { Flex } from "@chakra-ui/layout";
 import useHosts from "../../hooks/useHosts";
-const host = {
-  displayPic: DummyDp,
-  username: "Sarah Collins",
-  location: "Tilekar Nagar, Kondhwa - 400m",
-  rating: 4,
-  description:
-    "Hello! i’m Sarah, your local friendly neighborhood pet enthusiast. I’ve always had a special attachment to animals and the rascals seem to love me too. I own two dogs and 4 cats. I have always been around animals since i was a kid. If you are looking for someone to take care of your little trouble-maker, i’m the perfect person for the job. Feel free to hit me up.",
-  totalEarned: "20k",
-  totalJobs: 47,
-  totalHours: 117,
-  jobs: [
-    {
-      title: "2 Dogs for 2 hours",
-      reviewStar: 4,
-      date: "12 Mar, 2022",
-      review:
-        "Very proffessional and friendly. She taok very good care of my dogs and even went above and beyond to take them for a walk. Would 100% reconsider hiring her again.",
-      totalEarned: 300,
-      ratePerHour: 150,
-      hours: 2,
-    },
-    {
-      title: "1 Dog for 3 hours",
-      reviewStar: 5,
-      date: "12 Mar, 2022",
-      review:
-        "Very proffessional and friendly. She taok very good care of my dogs and even went above and beyond to take them for a walk. Would 100% reconsider hiring her again.",
-      totalEarned: 450,
-      ratePerHour: 150,
-      hours: 3,
-    },
-    {
-      title: "2 Dogs for 2 hours",
-      reviewStar: 4,
-      date: "12 Mar, 2022",
-      review:
-        "Very proffessional and friendly. She taok very good care of my dogs and even went above and beyond to take them for a walk. Would 100% reconsider hiring her again.",
-      totalEarned: 450,
-      ratePerHour: 150,
-      hours: 2,
-    },
-  ],
-};
+import useAuth from "../../hooks/useAuth";
+
+
 
 const HostProfile = () => {
+  const { user } = useAuth();
   const { getSingleHost } = useHosts();
-  const [user, setUser] = useState(null);
-
+  const [User, setUser] = useState(null);
+  const [requested,setRequested] = useState(false)
+  const id = window.location.pathname.split("/")[2];
   useEffect(() => {
-    const id = window.location.pathname.split("/")[2];
+    let isBooked = user.userRequest.some(u => u.hostId == id);
+    setRequested(isBooked)
     getSingleHost(id).then((res) => setUser(res));
-  }, []);
+  }, [id]);
+
   const toggleImageModal = () => {
     setState(!state);
   };
@@ -70,12 +31,12 @@ const HostProfile = () => {
       <HostFormModal state={state} toggleModal={toggleImageModal} />
       <div className="header">
         <div className="dp-container">
-          <img src={user?.profilePic} alt="display pic" />
+          <img src={User?.profilePic} alt="display pic" />
         </div>
         <div className="details-container">
           <div className="username-location-container">
             <div className="username-verified-container">
-              <p className="username">{user?.name}</p>
+              <p className="username">{User?.name}</p>
               <VerifiedUserIcon
                 sx={{ color: "#FF9800", marginLeft: "2rem" }}
                 fontSize="large"
@@ -91,7 +52,7 @@ const HostProfile = () => {
           <div className="credibility">
             <Rating
               name="read-only"
-              value={host.rating}
+              value={4}
               readOnly
               size="large"
             />
@@ -102,11 +63,24 @@ const HostProfile = () => {
           </div>
         </div>
         <div className="book-btn-container">
-          <button onClick={() => setState(!state)} className="book-me-btn">
-            Book Me
-          </button>
+         
         </div>
       </div>
+
+    { !requested ? (
+            <>
+            <button align="center" onClick={() => {setState(!state)
+            }} className="book-me-btn">
+            Book Me
+          </button>
+            </>
+          ):(
+            <>
+            <h1 align="center">Your Request Has Been Sent!</h1>
+            </>
+          )
+}
+   
     </div>
   );
 };
