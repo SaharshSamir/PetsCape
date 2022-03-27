@@ -135,10 +135,12 @@ const getAllRequestsToHost = async (req, res) => {
 
 const getHostsNearMe = async (req, res) => {
   const { longitude, latitude } = req.params;
+  console.log(longitude, latitude);
   try {
     const AllHosts = await User.find({ isHost: true });
     let result = [];
     for (host of AllHosts) {
+      console.log(host.location.latitude);
       const ans = getDistance(
         host.location.latitude,
         host.location.longitude,
@@ -169,6 +171,7 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
       Math.sin(dLon / 2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   var d = R * c; // Distance in km
+  console.log(d);
   return d;
 };
 

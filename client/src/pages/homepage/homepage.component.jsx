@@ -40,13 +40,26 @@ import { Fade } from "react-reveal";
 const Homepage = () => {
   const navigate = useNavigate();
   const [hosts, setHosts] = useState([]);
-  const { getAllHosts } = useHosts();
+  const [nearByHosts, setNearByHosts] = useState([]);
+  const { getAllHosts, getNearbyHosts } = useHosts();
 
   useEffect(() => {
     getAllHosts().then((res) => {
       setHosts(res);
     });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+      console.log("okay");
+    } else {
+    }
   }, []);
+  const showPosition = (val) => {
+    console.log("position");
+    console.log(val.coords);
+    getNearbyHosts(val.coords.latitude, val.coords.longitude).then((res) => {
+      setNearByHosts(res);
+    });
+  };
 
   return (
     <Flex direction="column" alignItems="center">

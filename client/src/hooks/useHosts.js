@@ -91,7 +91,17 @@ const useHosts = () => {
     }
     enqueueSnackbar(res.data.message, { variant: "success" });
   });
-
+  const getNearbyHosts = async (latitude, longitude) => {
+    try {
+      const res = await axiosInstance.get(
+        `/getHostsNearMe/${latitude}/${longitude}`
+      );
+      console.log(res.data.result);
+      return res.data.result;
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return {
     getSingleHost,
     sendRequest,
@@ -100,6 +110,7 @@ const useHosts = () => {
     getAllRequestsToHost,
     approveUserRequest,
     rejectUserRequest,
+    getNearbyHosts,
   };
 };
 export default useHosts;
