@@ -31,6 +31,7 @@ const useHosts = () => {
       const res = await axiosInstance.post("/sendRequest", body, config);
       console.log(res.data);
       enqueueSnackbar("Request send successfully!", { variant: "success" });
+      navigate("/home");
     } catch (e) {
       console.log(e);
       enqueueSnackbar("Some Error Occured", { variant: "error" });
@@ -65,11 +66,40 @@ const useHosts = () => {
     return res.data.hosts;
   }, []);
 
+  const getAllRequestsToHost = useCallback(async () => {
+    const res = await axiosInstance.get("/request/getAllRequestsToHost");
+    console.log(res, "these are my requests!");
+    if (!res.data.ok) return;
+
+    return res.data.data;
+  });
+
+  const approveUserRequest = useCallback(async (data) => {
+    const res = await axiosInstance.post("request/acceptRequest", data);
+    if (!res.data.ok) {
+      enqueueSnackbar(res.data.message, { variant: "error" });
+      return;
+    }
+    enqueueSnackbar(res.data.message, { variant: "success" });
+  });
+
+  const rejectUserRequest = useCallback(async (data) => {
+    const res = await axiosInstance.post("request/rejectRequest", data);
+    if (!res.data.ok) {
+      enqueueSnackbar(res.data.message, { variant: "error" });
+      return;
+    }
+    enqueueSnackbar(res.data.message, { variant: "success" });
+  });
+
   return {
     getSingleHost,
     sendRequest,
     hostVerify,
     getAllHosts,
+    getAllRequestsToHost,
+    approveUserRequest,
+    rejectUserRequest,
   };
 };
 export default useHosts;

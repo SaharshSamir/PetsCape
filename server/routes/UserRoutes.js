@@ -18,6 +18,12 @@ const {
   getAllHosts,
 } = require("../controllers/Host");
 
+const {
+  createPost,
+  likeAPI,
+  getAllPosts
+} = require("../controllers/Post")
+
 const { addReview } = require("../controllers/Review");
 
 const { isHost } = require("../middlewares/isHost");
@@ -39,5 +45,8 @@ router.get("/getAllHosts", getAllHosts);
 router.get("/getHostsNearMe/:latitude/:longitude", getHostsNearMe);
 router.post("/addReview", addReview);
 router.get("/getAllRequest/:id", getAllRequest);
+router.post("/createPost",isLoggedIn, createPost);
+router.post("/likeAPI",isLoggedIn, likeAPI);
+router.get("/getAllPosts",getAllPosts);
 
 module.exports = router;

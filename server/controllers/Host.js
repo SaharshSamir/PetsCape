@@ -137,9 +137,9 @@ const acceptRequest = async (req, res) => {
   };
   try {
     const request = await Request.findByIdAndUpdate(
-      { _id: reqId },
-      { isApproved: true },
-      price
+      reqId ,
+      { isApproved: true,price },
+      
     );
     if (request)
       return res.status(200).send({ ok: true, message: "Request Approved!" });
@@ -156,8 +156,7 @@ const rejectRequest = async (req, res) => {
   try {
     const request = await Request.findByIdAndUpdate(
       { _id: reqId },
-      { isApproved: false },
-      { isPending: false }
+      { isApproved: false, isPending: false }
     );
     if (request)
       return res.status(200).send({ ok: true, message: "Request Rejected" });
@@ -176,7 +175,7 @@ const changePrice = async (req, res) => {
     rate,
   };
   try {
-    const change = await Request.findByIdAndUpdate({ _id: reqId }, { price });
+    const change = await Request.findByIdAndUpdate(reqId, { price });
     if (change) res.status(200).send({ ok: true, message: "Price Changed!" });
     else {
       res.status(200).send({ ok: false, message: "Error" });
