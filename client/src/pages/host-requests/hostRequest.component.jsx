@@ -8,8 +8,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Avatar, styled, Modal, TextField } from "@mui/material";
 import CustomButton from "../../components/custom-button/customButton.component";
 import useHosts from "../../hooks/useHosts";
-import useChat from '../../hooks/useChat';
-import {useNavigate} from 'react-router-dom';
+import useChat from "../../hooks/useChat";
+import { useNavigate } from "react-router-dom";
 
 const requestData = {
   title: "This is a request title",
@@ -29,11 +29,11 @@ const RequestOverview = ({ request }) => {
   const [isAccepted, setIsAccepted] = useState(false);
   const [total, setTotal] = useState("");
   const [rate, setRate] = useState("");
-  const {createChatRoom} = useChat();
+  const { createChatRoom } = useChat();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const { approveUserRequest, rejectUserRequest } = useHosts();
   const approveRequest = () => {
@@ -53,18 +53,16 @@ const RequestOverview = ({ request }) => {
     rejectUserRequest(data);
   };
 
-
   const handelChatClick = () => {
-      console.log(request.userId,request.hostId);
-      createChatRoom(request.userId,request.hostId)
-      .then(res => {
-          navigate(`/chat/${res.chatroomId}`)
-      })
-  const resetPay = ()=>{
+    console.log(request.userId, request.hostId);
+    createChatRoom(request.userId, request.hostId).then((res) => {
+      navigate(`/chat/${res.chatroomId}`);
+    });
+  };
 
-  }
+  const resetPay = () => {};
 
-  let A =() =>  (
+  let A = () => (
     <Flex margin="20px 0 0 0 ">
       <CustomButton
         sx={{
@@ -95,9 +93,8 @@ const RequestOverview = ({ request }) => {
   );
 
   if (request.isApproved && request.isPending && !request.isPaymentDone) {
-  
-    A = () =>  (
-      <Flex  margin="20px 0 0 0 ">
+    A = () => (
+      <Flex margin="20px 0 0 0 ">
         <CustomButton
           sx={{
             width: "25%",
@@ -122,49 +119,55 @@ const RequestOverview = ({ request }) => {
           RENEW PAY
         </CustomButton>
         <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Flex direction="column" borderRadius={"5px"} padding={"20px"} background={"white"} width="40%" marginLeft={"auto"} marginRight={"auto"} marginTop={"2%"} >
-              <Text fontSize="1.2em">
-                Renew Pay
-              </Text>
-              <TextField
-                sx={{ margin: "10px 0" }}
-                label="Total amount"
-                placeholder="$300"
-                value={total}
-                onChange={(e) => {
-                  setTotal(e.target.value);
-                }}
-              />
-              <TextField
-                sx={{ margin: "10px 0" }}
-                label="Fare"
-                placeholder="$20/hr"
-                value={rate}
-                onChange={(e) => {
-                  setRate(e.target.value);
-                }}
-              />
-              <CustomButton simple onClick={resetPay}>
-                SET
-              </CustomButton>
-            </Flex>
-      </Modal>
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Flex
+            direction="column"
+            borderRadius={"5px"}
+            padding={"20px"}
+            background={"white"}
+            width="40%"
+            marginLeft={"auto"}
+            marginRight={"auto"}
+            marginTop={"2%"}
+          >
+            <Text fontSize="1.2em">Renew Pay</Text>
+            <TextField
+              sx={{ margin: "10px 0" }}
+              label="Total amount"
+              placeholder="$300"
+              value={total}
+              onChange={(e) => {
+                setTotal(e.target.value);
+              }}
+            />
+            <TextField
+              sx={{ margin: "10px 0" }}
+              label="Fare"
+              placeholder="$20/hr"
+              value={rate}
+              onChange={(e) => {
+                setRate(e.target.value);
+              }}
+            />
+            <CustomButton simple onClick={resetPay}>
+              SET
+            </CustomButton>
+          </Flex>
+        </Modal>
       </Flex>
-
-
-
     );
   }
 
   if (!request.isPending) {
-    A = () =>  (
-      <Flex  margin="20px 0 0 0 ">
-       <Text fontSize="1.5em" color="#D32F2F">YOU HAVE REJECTED THIS REQUEST !</Text>
+    A = () => (
+      <Flex margin="20px 0 0 0 ">
+        <Text fontSize="1.5em" color="#D32F2F">
+          YOU HAVE REJECTED THIS REQUEST !
+        </Text>
       </Flex>
     );
   }
@@ -188,7 +191,7 @@ const RequestOverview = ({ request }) => {
             From {request.from?.Sdate}, {request.from?.Stime} to{" "}
             {request.to?.Edate}, {request.to?.Etime}
           </Text>
-         <A/>
+          <A />
           {isAccepted ? (
             <Flex direction="column" width="40%" margin="20px 0">
               <Text fontSize="1.2em">
@@ -223,9 +226,6 @@ const RequestOverview = ({ request }) => {
   );
 };
 
-
-
-};
 const HostRequest = () => {
   const [requests, setRequests] = useState([]);
   const { getAllRequestsToHost } = useHosts();
