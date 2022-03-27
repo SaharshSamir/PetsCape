@@ -63,7 +63,7 @@ const useAuth = () => {
       const response = await axiosInstance.get("/jwtVerify");
       if (response) {
         const { user } = response.data;
-        delete user.password;
+        delete user?.password;
         dispatch(
           initialize({
             user,
