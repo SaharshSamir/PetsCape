@@ -11,7 +11,7 @@ import useAuth from "../../hooks/useAuth";
 import CustomButton from "../../components/custom-button/customButton.component";
 import useHosts from "../../hooks/useHosts";
 const HostFormModal = ({ state, toggleModal, url }) => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [host, setHost] = useState("");
   const [data, setData] = useState({
     title: "",
@@ -21,15 +21,14 @@ const HostFormModal = ({ state, toggleModal, url }) => {
     Edate: "",
     Etime: "",
     hostId: window.location.pathname.split("/")[2],
-  userId:user?._id
+    userId: user?._id,
   });
 
   const { sendRequest } = useHosts();
 
-
-  useEffect(()=>{
-    console.log( window.location.pathname.split("/")[2]);
-  },[])
+  useEffect(() => {
+    console.log(window.location.pathname.split("/")[2]);
+  }, []);
 
   const onChangeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -42,18 +41,18 @@ const HostFormModal = ({ state, toggleModal, url }) => {
   return (
     <Modal open={state} onClose={toggleModal}>
       <Box
-        width="50vw"
+        width="40vw"
         height="auto"
         position="absolute"
         padding="1rem"
-        borderRadius="20px"
+        borderRadius="10px"
         top="50%"
         left="50%"
         transform="translate(-50%,-50%)"
         backgroundColor="white"
       >
         <Flex justify="center" alignItems="center" flexDirection="column">
-          <Box fontSize="1.4rem" fontWeight="400" m="1.2rem">
+          <Box fontSize="2rem" fontWeight="600" m="1.2rem">
             Book Your Host!
           </Box>
           <TextField
@@ -72,56 +71,60 @@ const HostFormModal = ({ state, toggleModal, url }) => {
             name="description"
             onChange={(e) => onChangeHandler(e)}
           />
-          <Flex justify="center" alignItems="center" flexDirection="column">
-            <Flex justify="center" alignItems="center">
+          <Flex justify="center" flexDirection="column" gap="20px" width="80%" marginTop="20px" marginBottom="30px" > 
+            <Flex justify="start" alignItems="center">
               <Text m="0.5rem">Start date: </Text>
               <Input
-                boxShadow="2px 2px 10px #D3D3D3"
+                // boxShadow="2px 2px 10px #D3D3D3"
+                border="2px solid #4CAF50"
                 borderRadius="5px"
-                border="none"
                 fontSize="1.2rem"
                 type="date"
                 name="Sdate"
+                padding="5px 10px"
                 onChange={(e) => onChangeHandler(e)}
               />
               <Text m="0.5rem">Start time</Text>
               <Input
-                boxShadow="2px 2px 10px #D3D3D3"
+                // boxShadow="2px 2px 10px #D3D3D3"
+                border="2px solid #4CAF50"
                 borderRadius="5px"
-                border="none"
                 fontSize="1.2rem"
                 onChange={(e) => onChangeHandler(e)}
                 name="Stime"
                 w="20%"
+                padding="5px 10px"
               />
             </Flex>
-            <Flex justify="center" alignItems="center">
-              <Text m="0.5rem">End Date</Text>
+            <Flex justify="start" alignItems="center">
+              <Text m="0.5rem">End date:</Text>
               <Input
-                boxShadow="2px 2px 10px #D3D3D3"
+                // boxShadow="2px 2px 10px #D3D3D3"
+                border="2px solid #4CAF50"
                 borderRadius="5px"
-                border="none"
                 fontSize="1.2rem"
                 type="date"
                 onChange={(e) => onChangeHandler(e)}
                 name="Edate"
+                padding="5px 10px"
               />
               <Text m="0.5rem">End Time</Text>
               <Input
-                boxShadow="2px 2px 10px #D3D3D3"
+                // boxShadow="2px 2px 10px #D3D3D3"
+                border="2px solid #4CAF50"
                 borderRadius="5px"
-                border="none"
                 fontSize="1.2rem"
                 onChange={(e) => onChangeHandler(e)}
                 name="Etime"
                 w="20%"
+                padding="5px 10px"
               />
             </Flex>
           </Flex>
           <CustomButton
             onClick={(e) => {
-              onSubmitHandler(e)
-              toggleModal()
+              onSubmitHandler(e);
+              toggleModal();
             }}
             sx={{ marginTop: "1.2rem", fontSize: "1.2rem" }}
           >
@@ -133,9 +136,3 @@ const HostFormModal = ({ state, toggleModal, url }) => {
   );
 };
 export default HostFormModal;
-
-
-
-
-
-

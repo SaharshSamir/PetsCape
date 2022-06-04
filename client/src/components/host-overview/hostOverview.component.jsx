@@ -1,15 +1,34 @@
-import { Flex,Text } from "@chakra-ui/react";
-import { Avatar, Rating } from "@mui/material";
+import { Flex, Text } from "@chakra-ui/react";
+import { Avatar, Rating, ButtonBase, Button } from "@mui/material";
 import React from "react";
 import CustomButton from "../custom-button/customButton.component";
+import { useNavigate} from 'react-router-dom';
 
 const HostOverview = ({ host }) => {
+  const navigate = useNavigate();
+
+
+  const handleClick = () => {
+    navigate(`/host/${host._id}`)
+  }
   return (
-    <Flex direction="column" alignItems='center' cursor="pointer" >
-      <Avatar src={host?.profilePic} sx={{width:200,height:200}} />
-      <Text fontSize="1.5em" margin="10px">{host?.name}</Text>
-      <Rating value={3} readOnly size="large" />
-    </Flex>
+    <ButtonBase onClick={handleClick} >
+      <Flex
+        direction="column"
+        alignItems="center"
+        cursor="pointer"
+        backgroundColor="#f5f5f5"
+        boxShadow="rgba(149, 157, 165, 0.2) 0px 8px 24px"
+        padding="20px"
+        borderRadius="10px"
+      >
+        <Avatar src={host?.profilePic} sx={{ width: 200, height: 200 }} />
+        <Text fontSize="1.5em" margin="10px">
+          {host?.name}
+        </Text>
+        <Rating value={3} readOnly size="large" />
+      </Flex>
+    </ButtonBase>
   );
 };
 

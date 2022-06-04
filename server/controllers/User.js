@@ -129,7 +129,7 @@ const sendRequest = async (req, res) => {
 
 const getAllRequestsToHost = async (req, res) => {
   try {
-    const data = await Request.find({ hostId: req.user._id });
+    const data = await Request.find({ hostId: req.user._id }).populate("userId");
     if (data) res.status(200).send({ ok: true, message: "All requests", data });
   } catch (error) {}
 };
