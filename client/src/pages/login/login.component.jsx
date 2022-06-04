@@ -53,8 +53,9 @@ const Login = () => {
         flexDirection="column"
         w="50%"
         h="100vh"
+        marginTop="-4rem"
       >
-        <Box width="100px" height="200px" position="relative" left="100px" >
+        <Box width="100px" height="200px" position="relative" left="100px">
           <Lottie options={defaultOptions} height="100%" width="100%" />
         </Box>
         <Flex
