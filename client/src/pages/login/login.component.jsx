@@ -67,6 +67,7 @@ const Login = () => {
           justifyContent="center"
           alignItems="center"
           borderRadius="10px"
+          paddingBottom="2rem"
         >
           <Text m="1rem" fontWeight="400" fontSize="2.5rem">
             Login
