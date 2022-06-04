@@ -11,10 +11,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 export const Context = React.createContext({});
 
 const MainLayout = () => {
-  const [isFullScreen, setIsFullScreen] = useState(true);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { isLoggedIn, user } = useAuth();
+
 
   React.useEffect(() => {
     console.log(user);
@@ -30,6 +30,7 @@ const MainLayout = () => {
       }
     }
   }, [isLoggedIn]);
+
 
   return (
     <Page>
