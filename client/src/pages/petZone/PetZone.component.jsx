@@ -40,6 +40,7 @@ const PetZone = () => {
         right="50px"
         cursor="pointer"
         onClick={toggleCreateModal}
+        zIndex="100"
       >
         <Icon
           icon="fluent:add-circle-32-filled"
@@ -48,7 +49,12 @@ const PetZone = () => {
         />
       </Box>
       <PostsContainer>
-        {posts.length > 0 ? posts.slice().reverse().map((p) => <PetPost post={p} />) : null}
+        {posts.length > 0
+          ? posts
+              .slice()
+              .reverse()
+              .map((p) => <PetPost post={p} />)
+          : null}
         {[...Array(30)].map((p) => (
           <PetPost post={post1} />
         ))}
