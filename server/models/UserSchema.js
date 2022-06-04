@@ -43,6 +43,9 @@ const userSchema = new mongoose.Schema({
   interest: {
     type: String,
   },
+  hostImages:[{
+    type:String
+  }],
   stats: {
     totalEarnings: {
       type: Number,

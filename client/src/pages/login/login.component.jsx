@@ -7,8 +7,18 @@ import { TextField } from "@mui/material";
 import CustomButton from "../../components/custom-button/customButton.component";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import Lottie from "react-lottie";
+import catLottie from "../../assets/lotties/hidingCat.json";
 
 const Login = () => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: catLottie,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -38,15 +48,18 @@ const Login = () => {
         <Image h="100vh" w="100%" src={loginImg}></Image>
       </Box>
       <Flex
-        justifyContent="center"
+        justifyContent="start"
         alignItems="center"
         flexDirection="column"
         w="50%"
         h="100vh"
       >
+        <Box width="100px" height="200px" position="relative" left="100px" >
+          <Lottie options={defaultOptions} height="100%" width="100%" />
+        </Box>
         <Flex
           p="0.5rem"
-          h="70vh"
+          h="60vh"
           boxShadow="2px 2px 10px #D3D3D3"
           w="60%"
           flexDirection="column"

@@ -28,12 +28,16 @@ const HostPreview = ({ host }) => {
             <Text color="#A5A5A5" margin="5px 0 10px 0">
               88 reviews
             </Text>
-            <Chip
-              label="Pets"
-              icon={<Icon icon="ic:twotone-pets" />}
-              sx={{ marginRight: "20px" }}
-            />
-            <Chip label="Plants" icon={<Icon icon="ri:plant-fill" />} />
+            {host?.hostType === "animal" || host?.hostType === "both" ? (
+              <Chip
+                label="Pets"
+                icon={<Icon icon="ic:twotone-pets" />}
+                sx={{ marginRight: "20px" }}
+              />
+            ) : null}
+            {host?.hostType === "plants" || host?.hostType === "both" ? (
+              <Chip label="Plants" icon={<Icon icon="ri:plant-fill" />} />
+            ) : null}
           </Box>
           <CustomButton
             simple

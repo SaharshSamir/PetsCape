@@ -51,6 +51,7 @@ const HostVerify = () => {
     animal: false,
     plant: false,
   });
+  const [hostImages,setHostImages] = useState([]);
 
   const handleCheck = (e, name) => {
     setTypeData({ ...typeData, [name]: e.target.checked });
@@ -60,7 +61,7 @@ const HostVerify = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const showWidget = () => {
+  const hostImagesHandler = () => {
     let widget = window.cloudinary.createUploadWidget(
       {
         cloudName: `dx1ye2bro`,
@@ -70,6 +71,7 @@ const HostVerify = () => {
         if (!error && result && result.event === "success") {
           console.log(result.info);
           console.log(result.info.url);
+          setHostImages(images => [...images,result.info.url]);
           return result.info.url;
         }
       }
@@ -122,6 +124,7 @@ const HostVerify = () => {
     }
     const mainData = {
       ...data,
+      hostImages,
       hostType: a,
     };
     hostVerify(mainData);
@@ -130,13 +133,13 @@ const HostVerify = () => {
 
   return (
     <Flex justifyContent="center" alignItems="center">
-      <Box width="40%" height="100%" >
+      <Box width="40%" height="100%">
         <Lottie options={defaultOptions} height="80%" width="100%" />
       </Box>
       <Flex
         p="0.5rem"
         h="auto"
-        mt="2rem"
+        mt="1rem"
         mb="4rem"
         // boxShadow="2px 2px 10px #D3D3D3"
         w="50%"
@@ -182,8 +185,8 @@ const HostVerify = () => {
           </CustomButton>
         </Flex>
 
-        <Text>Where does your interest lie?</Text>
-        <Flex justifyContent="center" alignItems="flex-start">
+        <Flex justifyContent="center" alignItems="center" marginBottom="10px">
+          <Text>Where does your interest lie?</Text>
           <Flex justifyContent="center" alignItems="center">
             <Checkbox
               // onChange={(e) => checkHandler(e)}
@@ -228,6 +231,10 @@ const HostVerify = () => {
           rows={3}
           onChange={(e) => onChangeHandler(e)}
         />
+        <Flex alignItems="center" gap="20px">
+          <Text>Add nice images of you taking care of a pet:</Text>
+          <CustomButton simple onClick={hostImagesHandler}>UPLOAD</CustomButton>
+        </Flex>
         <Flex justifyContent="center" alignItems="center" w="50%" mt="2rem">
           <CustomButton
             sx={{
