@@ -69,6 +69,8 @@ const HostFormModal = ({ state, toggleModal, url }) => {
             label="Description"
             variant="outlined"
             name="description"
+            multiline
+            rows={4}
             onChange={(e) => onChangeHandler(e)}
           />
           <Flex justify="center" flexDirection="column" gap="20px" width="80%" marginTop="20px" marginBottom="30px" > 

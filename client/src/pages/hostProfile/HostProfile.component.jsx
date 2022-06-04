@@ -59,12 +59,16 @@ const HostProfile = () => {
                 250m from you
               </Text>
               <Flex marginTop="10px">
-                <Chip
-                  label="Pets"
-                  icon={<Icon icon="ic:twotone-pets" />}
-                  sx={{ marginRight: "20px" }}
-                />
-                <Chip label="Plants" icon={<Icon icon="ri:plant-fill" />} />
+                {User?.hostType === "animal" || User?.hostType === "both" ? (
+                  <Chip
+                    label="Pets"
+                    icon={<Icon icon="ic:twotone-pets" />}
+                    sx={{ marginRight: "20px" }}
+                  />
+                ) : null}
+                {User?.hostType === "plants" || User?.hostType === "both" ? (
+                  <Chip label="Plants" icon={<Icon icon="ri:plant-fill" />} />
+                ) : null}
               </Flex>
               <Text color="#919191" fontSize="1.2em" marginTop="10px">
                 {User?.hostBio}

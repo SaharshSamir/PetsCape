@@ -64,10 +64,11 @@ const FilterHost = () => {
 
   useEffect(() => {
     getAllHosts().then((res) => {
+      console.log(res,"heeee");
       if (type == "pets") {
         setHosts(
           res.filter(
-            (host) => host.hostType === "Animal" || host.hostType === "both"
+            (host) => host.hostType.toLowerCase() === "animal" || host.hostType === "both"
           )
         );
       } else if (type == "plants") {
