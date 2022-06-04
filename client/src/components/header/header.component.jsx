@@ -112,9 +112,9 @@ const Header = () => {
         <SecondaryButton style={{marginRight: "20px"}} className="secondary-btn" onClick={() => navigate("/petZone")}>
           Pet Lovers Zone{" "}
         </SecondaryButton>
-        {user.isHost ? (
+        {user?.isHost ? (
           <Box color="#4CAF50">HOST</Box>
-        ) : user.isPending ? (
+        ) : user?.isPending ? (
           <CustomButton onClick={() => {}}>REQUEST PENDING</CustomButton>
         ) : (
           <CustomButton onClick={() => navigate("/hostVerify")}>
