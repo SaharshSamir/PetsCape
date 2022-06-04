@@ -12,6 +12,7 @@ const createHost = async (req, res) => {
     hostBio,
     latitude,
     longitude,
+    hostImages
   } = req.body;
   if (
     !phone ||
@@ -40,6 +41,7 @@ const createHost = async (req, res) => {
         hostBio,
         isPending: true,
         location,
+        hostImages
       });
       if (updateDetails)
         return res.status(200).send({ ok: true, message: "Details Updated" });
@@ -182,6 +184,9 @@ const changePrice = async (req, res) => {
     }
   } catch (error) {}
 };
+
+
+
 
 module.exports = {
   createHost,

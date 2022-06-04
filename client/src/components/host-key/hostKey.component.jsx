@@ -5,6 +5,7 @@ import { Flex, Text } from "@chakra-ui/react";
 const HostKey = ({ host, selectHost, selected }) => {
   return (
     <Flex
+    width="90%"
       alignItems="center"
       padding="5px 15px"
       margin="15px"
