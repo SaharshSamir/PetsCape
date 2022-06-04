@@ -15,7 +15,8 @@ p {
   height: 300px;
   width: 300px;
   border-radius: 50%;
-  margin-left: 5rem;
+  /* margin-left: 5rem; */
+  margin:"100px 1rem"
 }
 
 .details-container {
