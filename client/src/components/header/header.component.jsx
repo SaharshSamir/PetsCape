@@ -1,18 +1,29 @@
-import React, { useEffect } from "react";
-import { Flex, Text, Box } from "@chakra-ui/react";
-import { Avatar, Button, TextField, styled, Popover } from "@mui/material";
-import CustomButton, {SecondaryButton} from "../custom-button/customButton.component";
+import React, { useEffect, useState } from "react";
+import { Flex, Text, Box, Image } from "@chakra-ui/react";
+import {
+  Avatar,
+  Button,
+  TextField,
+  styled,
+  Popover,
+  Rating,
+} from "@mui/material";
+import CustomButton, {
+  SecondaryButton,
+} from "../custom-button/customButton.component";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import "./styles.css";
+import axios from "../../utils/axios";
+import useHosts from "../../hooks/useHosts";
 
 const secondaryButton = {
   marginRight: "20px",
-  border:"#4CAF50",
-  color: "#4CAF50", 
-  backgroundColor: "white"
-}
+  border: "#4CAF50",
+  color: "#4CAF50",
+  backgroundColor: "white",
+};
 
 const SearchBar = styled(TextField)(() => ({
   width: "50vw",
@@ -38,6 +49,60 @@ const SearchBar = styled(TextField)(() => ({
     },
   },
 }));
+
+const Dropdown = ({ searchQuery, hosts }) => {
+  const [filteredHosts, setFilteredHosts] = useState([]);
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    setFilteredHosts(hosts);
+    setQuery(searchQuery);
+    const newCourses = hosts.filter((host) =>
+      host.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredHosts(newCourses);
+  }, [searchQuery]);
+
+  const navigate = useNavigate();
+
+  return (
+    <Box
+      width="70vw"
+      marginLeft="120px"
+      zIndex="99999"
+      position="absolute"
+      top="60px"
+      backgroundColor="#fff"
+      borderRadius="5px"
+      maxHeight="200px"
+      overflowY="scroll"
+      display={query.length > 0 ? "block" : "none"}
+    >
+      {filteredHosts.map((host) => (
+        <Flex
+          height="50px"
+          padding="5px 10px"
+          alignItems="center"
+          _hover={{ backgroundColor: "#dfdfdf" }}
+          cursor="pointer"
+          onClick={() => {
+            navigate(`/host/${host?._id}`);
+            setQuery("");
+          }}
+        >
+          <Image
+            src={host?.profilePic}
+            height="40px"
+            width="40px"
+            borderRadius="5px"
+            marginRight="10px"
+          />{" "}
+          {host.name}
+        </Flex>
+      ))}
+    </Box>
+  );
+};
 
 const DropDownKey = ({ text, iconName, ...props }) => {
   return (
@@ -67,8 +132,11 @@ const DropDownKey = ({ text, iconName, ...props }) => {
 };
 
 const Header = () => {
+  const [hosts, setHosts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { getAllHosts } = useHosts();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -78,6 +146,12 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    getAllHosts().then((res) => {
+      setHosts(res);
+    });
+  }, []);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -106,10 +180,19 @@ const Header = () => {
           variant="outlined"
           sx={{ padding: "0px" }}
           placeholder="Search care takers"
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+          }}
         />
       </Flex>
+      <Dropdown searchQuery={searchQuery} hosts={hosts} />
       <Flex direction="row" padding="0 20px" alignItems="center">
-        <SecondaryButton style={{marginRight: "20px"}} className="secondary-btn" onClick={() => navigate("/petZone")}>
+        <SecondaryButton
+          style={{ marginRight: "20px" }}
+          className="secondary-btn"
+          onClick={() => navigate("/petZone")}
+        >
           Pet Lovers Zone{" "}
         </SecondaryButton>
         {user?.isHost ? (

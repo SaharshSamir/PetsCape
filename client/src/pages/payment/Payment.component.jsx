@@ -68,9 +68,15 @@ const Payment = ({ price, state, toggleState }) => {
     rzp1.open();
   };
   return (
-    <CustomButton simple onClick={handlePayment}>
-      {state ? "Pay to the host" : "Job Done!"}
-    </CustomButton>
+    <>
+      {state ? (
+        <CustomButton simple onClick={handlePayment}>
+          PAY NOW
+        </CustomButton>
+      ) : (
+        <CustomButton>JOB DONE!</CustomButton>
+      )}
+    </>
   );
 };
 

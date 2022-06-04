@@ -5,7 +5,18 @@ import { TextField } from "@mui/material";
 import CustomButton from "../../components/custom-button/customButton.component";
 import { Checkbox } from "@mui/material";
 import useHosts from "../../hooks/useHosts";
+import Lottie from "react-lottie";
+import catLottie from "../../assets/lotties/catLottie.json";
+
 const HostVerify = () => {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: catLottie,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   const [data, setData] = useState({
     phone: "",
     gender: "",
@@ -119,12 +130,15 @@ const HostVerify = () => {
 
   return (
     <Flex justifyContent="center" alignItems="center">
+      <Box width="40%" height="100%" >
+        <Lottie options={defaultOptions} height="80%" width="100%" />
+      </Box>
       <Flex
         p="0.5rem"
         h="auto"
         mt="2rem"
         mb="4rem"
-        boxShadow="2px 2px 10px #D3D3D3"
+        // boxShadow="2px 2px 10px #D3D3D3"
         w="50%"
         flexDirection="column"
         justifyContent="center"
@@ -150,19 +164,23 @@ const HostVerify = () => {
           name="gender"
           onChange={(e) => onChangeHandler(e)}
         />
-        <CustomButton
-          name="profile"
-          onClick={() => imageHandler1()}
-          sx={{ margin: "1rem" }}
-        >
-          Add your Profile Picture
-        </CustomButton>
-        <CustomButton
-          onClick={() => imageHandler2()}
-          sx={{ marginBottom: "1rem" }}
-        >
-          Add Your Proof of work
-        </CustomButton>
+        <Flex>
+          <CustomButton
+            name="profile"
+            onClick={() => imageHandler1()}
+            sx={{ margin: "1rem" }}
+            simple
+          >
+            Add your Profile Picture
+          </CustomButton>
+          <CustomButton
+            onClick={() => imageHandler2()}
+            sx={{ margin: "1rem" }}
+            simple
+          >
+            Add Your Proof of work
+          </CustomButton>
+        </Flex>
 
         <Text>Where does your interest lie?</Text>
         <Flex justifyContent="center" alignItems="flex-start">
@@ -201,14 +219,15 @@ const HostVerify = () => {
           name="interest"
           onChange={(e) => onChangeHandler(e)}
         />
-        <textarea
+        <TextField
           placeholder="Tell us something about yourself"
           id=""
-          cols="70"
-          rows="10"
           name="hostBio"
+          sx={{ width: "80%", marginBottom: "1rem" }}
+          multiline
+          rows={3}
           onChange={(e) => onChangeHandler(e)}
-        ></textarea>
+        />
         <Flex justifyContent="center" alignItems="center" w="50%" mt="2rem">
           <CustomButton
             sx={{

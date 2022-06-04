@@ -44,6 +44,7 @@ const RequestOverview = ({ request }) => {
       reqId: request._id,
     };
     approveUserRequest(data);
+    window.location.reload();
   };
 
   const rejectRequest = () => {
@@ -180,7 +181,7 @@ const RequestOverview = ({ request }) => {
         id="panel1a-header"
       >
         <Flex alignItems="center">
-          <Avatar src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" />
+          <Avatar src={request?.userId?.profilePic} />
           <Text marginLeft="20px">{request.title}</Text>
         </Flex>
       </AccordionSummary>
@@ -242,7 +243,7 @@ const HostRequest = () => {
         <Text fontSize="2em">YOUR RECENT REQUESTS:</Text>
         <Flex direction="column" padding="20px 0px">
           {requests.length > 0
-            ? requests.map((request) => <RequestOverview request={request} />)
+            ? requests.slice().reverse().map((request) => <RequestOverview request={request} />)
             : null}
           {/* <RequestOverview request={requestData} /> */}
         </Flex>

@@ -39,14 +39,8 @@ export default function Router() {
       path: "/admin",
       element: <AdminPage />,
     },
-    {
-      path: "/hostVerify",
-      element: <HostVerify />,
-    },
-    {
-      path: "/myRequests",
-      element: <UserRequests />,
-    },
+
+
     {
       path: "/",
       element: <MainLayout />,
@@ -54,6 +48,14 @@ export default function Router() {
         {
           path: "/home",
           element: <Home />,
+        },
+        {
+          path: "/hostVerify",
+          element: <HostVerify />,
+        },
+        {
+          path: "/myRequests",
+          element: <UserRequests />,
         },
         {
           path: "/test",
