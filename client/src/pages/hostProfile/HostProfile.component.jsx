@@ -7,7 +7,9 @@ import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import HostFormModal from "./HostFormModal";
 import useHosts from "../../hooks/useHosts";
 import useAuth from "../../hooks/useAuth";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
+import { Avatar } from "@mui/material";
+import CustomButton from "../../components/custom-button/customButton.component";
 
 const HostProfile = () => {
   const { user } = useAuth();
@@ -30,57 +32,42 @@ const HostProfile = () => {
       borderRadius={"10px"}
       boxShadow={"2px 2px 10px #D3D3D3"}
       margin={"5%"}
+      padding="20px"
+      width="60%"
+      marginX="auto"
       // p={"0.5rem"}
     >
       <HostFormModal state={state} toggleModal={toggleImageModal} />
-      <div className="header">
-        <div className="dp-container">
-          <img src={User?.profilePic} alt="display pic" />
-        </div>
-        <div className="details-container">
-          <div className="username-location-container">
-            <div className="username-verified-container">
-              <p className="username">{User?.name}</p>
-              <VerifiedUserIcon
-                sx={{ color: "#FF9800", marginLeft: "2rem" }}
-                fontSize="large"
-              />
-            </div>
-            <span className="location-container">
-              <RoomIcon sx={{ color: "#666666" }} />{" "}
-              <p className="location" style={{ color: "#666666" }}>
-                Tilekar Nagar, Kondhwa - 400m
-              </p>
-            </span>
-          </div>
-          <div className="credibility">
-            <Rating name="read-only" value={4} readOnly size="large" />
-            <span className="top-rated-span">
-              <BookmarkIcon sx={{ color: "#156FAF" }} />
-              Top rated
-            </span>
-          </div>
-        </div>
-        <div className="book-btn-container">
-          {!requested ? (
-            <>
-              <button
-                align="center"
+      <Box display="flex" gap="30px">
+        <Avatar src={User?.profilePic} sx={{ width: 200, height: 200 }} />
+        <Box display="flex" flexDirection="column">
+          <Text fontSize="3em">
+            {User?.name}{" "}
+            <VerifiedUserIcon
+              sx={{ color: "#FF9800", marginLeft: "2rem" }}
+              fontSize="large"
+            />
+          </Text>
+          <Text color="#a3a3a3">250m from you</Text>
+          <Rating value={4} readOnly size="large" sx={{ marginTop: "20px" }} />
+          <Box marginTop="20px">
+            {!requested ? (
+              <CustomButton
+                simple
                 onClick={() => {
                   setState(!state);
                 }}
-                className="book-me-btn"
               >
-                Book Me
-              </button>
-            </>
-          ) : (
-            <>
-              <h1 align="center">Your Request Has Been Sent!</h1>
-            </>
-          )}
-        </div>
-      </div>
+                BOOK
+              </CustomButton>
+            ) : (
+              <CustomButton disabled={true} simple>
+                ALREADY BOOKED
+              </CustomButton>
+            )}
+          </Box>
+        </Box>
+      </Box>
     </Box>
   );
 };
