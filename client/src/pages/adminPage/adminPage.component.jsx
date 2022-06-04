@@ -7,6 +7,7 @@ import ImageModal from "./viewImageModal";
 import useAdmins from "../../hooks/useAdmins";
 
 import HostKey from "../../components/host-key/hostKey.component";
+import AdminHeader from "../../components/header/AdminHeader.component";
 
 const hostsData = [
   {
@@ -79,102 +80,105 @@ const AdminPage = () => {
   };
 
   return (
-    <Box width="100vw" height="100vh" display="grid" placeItems="center">
-      <Flex
-        height="80%"
-        width="80%"
-        boxShadow="0px 7.71233px 19.2808px rgba(35, 35, 35, 0.2)"
-        justifyContent="space-between"
-      >
+    <Box sx={{ overflowX: "hidden" }}>
+      <AdminHeader />
+      <Box width="100vw" height="100vh" display="grid" placeItems="center">
         <Flex
-          direction="column"
-          width="20%"
-          height="100%"
-          alignItems="center"
-          borderRight="1px solid black"
+          height="80%"
+          width="80%"
+          boxShadow="0px 7.71233px 19.2808px rgba(35, 35, 35, 0.2)"
+          justifyContent="space-between"
         >
-          {hosts.map((host) => (
-            <HostKey
-              host={host}
-              selectHost={selectHost}
-              selected={selectedHost?._id == host?._id}
-            />
-          ))}
-        </Flex>
-        {hosts.length > 0 ? (
           <Flex
             direction="column"
-            width="75%"
+            width="20%"
             height="100%"
-            padding="20px 30px 20px 0"
-            justifyContent="space-between"
+            alignItems="center"
+            borderRight="1px solid black"
           >
-            <Box>
-              <Flex>
-                <Avatar
-                  src={selectedHost?.profilePic}
-                  sx={{ width: 200, height: 200 }}
-                />
-                <Flex direction="column" marginLeft="30px">
-                  <Text fontSize="3em">{selectedHost?.name}</Text>
-                  <Text fontSize="1.5em" margin="2px 0px 10px 0px">
-                    {selectedHost?.email}
-                  </Text>
-                  <Text fontSize="1.2em" margin="2px 0px 10px 0px">
-                    {selectedHost?.gender}
-                  </Text>
-                  <Text fontSize="1.2em">{selectedHost?.phone}</Text>
-                </Flex>
-              </Flex>
-              <Text marginTop="20px">{selectedHost?.hostBio}</Text>
-              <CustomButton
-                sx={{ width: "25%", marginTop: "20px" }}
-                simple
-                onClick={toggleImageModal}
-              >
-                VIEW ID PROOF
-              </CustomButton>
-              <ImageModal
-                state={showModal}
-                toggleModal={toggleImageModal}
-                url={selectedHost?.idProof}
+            {hosts.map((host) => (
+              <HostKey
+                host={host}
+                selectHost={selectHost}
+                selected={selectedHost?._id == host?._id}
               />
-            </Box>
-
-            <Flex direction="row" width="100%" justify="end">
-              <CustomButton
-                sx={{
-                  width: "25%",
-                  backgroundColor: "#009688",
-                  marginRight: "30px",
-                  "&:hover": { backgroundColor: "#009688" },
-                }}
-                simple
-                onClick={() => {
-                  approveHost({ _id: selectedHost._id });
-                  window.location.reload();
-                }}
-              >
-                ACCEPT
-              </CustomButton>
-              <CustomButton
-                sx={{
-                  width: "25%",
-                  backgroundColor: "#D32F2F",
-                  "&:hover": { backgroundColor: "#D32F2F" },
-                }}
-                simple
-                onClick={() => {
-                  rejectHost({ _id: selectedHost._id });
-                  window.location.reload();
-                }}
-              >
-                REJECT
-              </CustomButton>
-            </Flex>
+            ))}
           </Flex>
-        ) : null}
-      </Flex>
+          {hosts.length > 0 ? (
+            <Flex
+              direction="column"
+              width="75%"
+              height="100%"
+              padding="20px 30px 20px 0"
+              justifyContent="space-between"
+            >
+              <Box>
+                <Flex>
+                  <Avatar
+                    src={selectedHost?.profilePic}
+                    sx={{ width: 200, height: 200 }}
+                  />
+                  <Flex direction="column" marginLeft="30px">
+                    <Text fontSize="3em">{selectedHost?.name}</Text>
+                    <Text fontSize="1.5em" margin="2px 0px 10px 0px">
+                      {selectedHost?.email}
+                    </Text>
+                    <Text fontSize="1.2em" margin="2px 0px 10px 0px">
+                      {selectedHost?.gender}
+                    </Text>
+                    <Text fontSize="1.2em">{selectedHost?.phone}</Text>
+                  </Flex>
+                </Flex>
+                <Text marginTop="20px">{selectedHost?.hostBio}</Text>
+                <CustomButton
+                  sx={{ width: "25%", marginTop: "20px" }}
+                  simple
+                  onClick={toggleImageModal}
+                >
+                  VIEW ID PROOF
+                </CustomButton>
+                <ImageModal
+                  state={showModal}
+                  toggleModal={toggleImageModal}
+                  url={selectedHost?.idProof}
+                />
+              </Box>
+
+              <Flex direction="row" width="100%" justify="end">
+                <CustomButton
+                  sx={{
+                    width: "25%",
+                    backgroundColor: "#009688",
+                    marginRight: "30px",
+                    "&:hover": { backgroundColor: "#009688" },
+                  }}
+                  simple
+                  onClick={() => {
+                    approveHost({ _id: selectedHost._id });
+                    window.location.reload();
+                  }}
+                >
+                  ACCEPT
+                </CustomButton>
+                <CustomButton
+                  sx={{
+                    width: "25%",
+                    backgroundColor: "#D32F2F",
+                    "&:hover": { backgroundColor: "#D32F2F" },
+                  }}
+                  simple
+                  onClick={() => {
+                    rejectHost({ _id: selectedHost._id });
+                    window.location.reload();
+                  }}
+                >
+                  REJECT
+                </CustomButton>
+              </Flex>
+            </Flex>
+          ) : null}
+        </Flex>
+      </Box>
     </Box>
   );
 };
