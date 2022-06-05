@@ -7,20 +7,26 @@ import { ImageContainer } from "./hostPreview.styles";
 import { Icon } from "@iconify/react";
 import { Fade } from "react-reveal";
 
-const HostPreview = ({ host }) => {
+const HostPreview = ({ hostData }) => {
+  const {host,ans} = hostData;
   const navigate = useNavigate();
   return (
     <Fade bottom>
       <Flex
         borderRadius="10px"
         backgroundColor="#f5f5f5"
-        boxShadow="0px 7.71233px 19.2808px rgba(35, 35, 35, 0.2)"
+        boxShadow="rgba(149, 157, 165, 0.2) 0px 8px 24px"
         height="250px"
         overflow="hidden"
         margin="10px 0 20px 0"
         padding="10px"
+        transition="all 0.2s ease-in"
+        _hover={{
+          transform:'scale(1.02)',
+          boxShadow:'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px'
+        }}
       >
-        <ImageContainer url={host.profilePic}>100m</ImageContainer>
+        <ImageContainer url={host.profilePic}>{ans.toFixed(2)}m</ImageContainer>
         <Flex direction="column" justifyContent="space-between" width="25%">
           <Box>
             <Text fontSize="2em">{host.name}</Text>

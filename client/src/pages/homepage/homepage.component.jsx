@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Flex, Text, Box } from "@chakra-ui/react";
+import { Flex, Text, Box, Image } from "@chakra-ui/react";
 import ImageButton from "../../components/image-button/imageButton.component";
 import { HomeImage } from "./homepage.styles";
 import { Avatar } from "@mui/material";
@@ -8,6 +8,8 @@ import HostPreview from "../../components/host-preview/hostPreview.component";
 import { useNavigate } from "react-router-dom";
 import useHosts from "../../hooks/useHosts";
 import { Fade } from "react-reveal";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 
 // const hosts = [
 //   {
@@ -46,9 +48,8 @@ const Homepage = () => {
   useEffect(() => {
     getAllHosts().then((res) => {
       setHosts(res);
-
     });
-    getNearbyHosts(18.500601, 73.984230).then((res) => {
+    getNearbyHosts(18.500601, 73.98423).then((res) => {
       setNearByHosts(res);
     });
     if (navigator.geolocation) {
@@ -57,10 +58,11 @@ const Homepage = () => {
     } else {
     }
   }, []);
-  useEffect(()=>{
-      setNearByHosts(nearByHosts.sort((a,b)=>a.ans-b.ans));
-  },[nearByHosts]);
-  console.log(nearByHosts)
+  // useEffect(()=>{
+  //     const newHosts = nearByHosts?.sort((a,b)=>a.ans-b.ans)
+  //     setNearByHosts(newHosts);
+  // },[nearByHosts]);
+  console.log(nearByHosts);
   const showPosition = (val) => {
     console.log("position");
     console.log(val.coords);
@@ -68,7 +70,37 @@ const Homepage = () => {
 
   return (
     <Flex direction="column" alignItems="center">
-      <HomeImage url="https://images.unsplash.com/photo-1581888227599-779811939961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" />
+      <Carousel autoPlay interval={3000} infiniteLoop>
+        <div>
+          <Image
+            width="100vw"
+            height="450px"
+            objectFit="cover"
+            src="https://images.unsplash.com/photo-1581888227599-779811939961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+          />
+          {/* <p className="legend">Legend 1</p> */}
+        </div>
+        <div>
+          <Image
+            width="100vw"
+            height="450px"
+            objectFit="cover"
+            src="https://images.unsplash.com/photo-1525253013412-55c1a69a5738?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+          />
+          {/* <p className="legend">Legend 2</p> */}
+        </div>
+        <div>
+          <Image
+            width="100vw"
+            height="450px"
+            objectFit="cover"
+            src="https://images.unsplash.com/photo-1568043210943-0e8aac4b9734?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+          />
+          {/* <p className="legend">Legend 3</p> */}
+        </div>
+      </Carousel>
+      {/* <HomeImage url="https://images.unsplash.com/photo-1581888227599-779811939961?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" /> */}
+
       <Box padding="20px" width="90%">
         <Text fontSize="2em" margin="10px 0 20px 0">
           Select your interest
@@ -125,9 +157,11 @@ const Homepage = () => {
           Caretakers around you
         </Text>
         <Flex direction="column">
-          {hosts.map((host) => (
-            <HostPreview host={host} />
-          ))}
+          {nearByHosts
+            .sort((a, b) => a.ans - b.ans)
+            .map((host) => (
+              <HostPreview hostData={host} />
+            ))}
         </Flex>
       </Box>
       <Box height="50px"></Box>
