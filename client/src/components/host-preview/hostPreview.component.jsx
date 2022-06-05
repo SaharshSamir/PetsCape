@@ -26,7 +26,7 @@ const HostPreview = ({ hostData }) => {
           boxShadow:'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px'
         }}
       >
-        <ImageContainer url={host?.profilePic}>{ans?.toFixed(2)}{" "} km</ImageContainer>
+        <ImageContainer url={host?.profilePic}>{ans !== 0 ?`${ans?.toFixed(2)} km`: 'cant detect location'}</ImageContainer>
         <Flex direction="column" justifyContent="space-between" width="25%">
           <Box>
             <Text fontSize="2em">{host?.name}</Text>

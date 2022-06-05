@@ -56,7 +56,9 @@ const Homepage = () => {
       });
     } else {
       getAllHosts().then((res) => {
-        setNearByHosts(res);
+        const newHosts = res.map((r) => ({ ans: 0, host: { ...r } }));
+        setNearByHosts(newHosts);
+        // console.log(res,"he he he");
       });
     }
   }, [coords]);
