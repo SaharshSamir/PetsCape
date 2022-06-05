@@ -103,7 +103,7 @@ const ClientRequestCard = ({ req }) => {
                 Chat with the Host!
               </CustomButton>
               <Payment
-                state={!req.isPending}
+                state={click}
                 toggleState={setClick}
                 price={req.price?.total}
               />
