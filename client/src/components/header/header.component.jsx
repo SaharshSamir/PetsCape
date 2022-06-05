@@ -174,7 +174,7 @@ const Header = () => {
           }}
           cursor="pointer"
         >
-          Petscape
+          Petto
         </Text>
         <SearchBar
           variant="outlined"
