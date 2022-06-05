@@ -55,7 +55,7 @@ const PetZone = () => {
               .reverse()
               .map((p) => <PetPost post={p} />)
           : null}
-        {[...Array(30)].map((p) => (
+        {[...Array(0)].map((p) => (
           <PetPost post={post1} />
         ))}
       </PostsContainer>
