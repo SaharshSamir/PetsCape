@@ -43,21 +43,33 @@ const Homepage = () => {
   const navigate = useNavigate();
   const [hosts, setHosts] = useState([]);
   const [nearByHosts, setNearByHosts] = useState([]);
+  const [coords, setCoords] = useState({
+    lat: null,
+    long: null,
+  });
   const { getAllHosts, getNearbyHosts } = useHosts();
 
   useEffect(() => {
-    getAllHosts().then((res) => {
-      setHosts(res);
-    });
-    getNearbyHosts(18.500601, 73.98423).then((res) => {
-      setNearByHosts(res);
-    });
+    if (coords.lat !== null && coords.long !== null) {
+      getNearbyHosts(coords.lat, coords.long).then((res) => {
+        setNearByHosts(res);
+      });
+    } else {
+      getAllHosts().then((res) => {
+        setNearByHosts(res);
+      });
+    }
+  }, [coords]);
+
+  useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
       console.log("okay");
     } else {
+      alert("please enable location!");
     }
   }, []);
+
   // useEffect(()=>{
   //     const newHosts = nearByHosts?.sort((a,b)=>a.ans-b.ans)
   //     setNearByHosts(newHosts);
@@ -66,6 +78,10 @@ const Homepage = () => {
   const showPosition = (val) => {
     console.log("position");
     console.log(val.coords);
+    setCoords({
+      lat: val.coords.latitude,
+      long: val.coords.longitude,
+    });
   };
 
   return (
@@ -146,8 +162,8 @@ const Homepage = () => {
             <Text>VIEW ALL</Text>
           </Flex>
           <Flex justifyContent="space-between">
-            {hosts.slice(0, 5).map((host) => (
-              <HostOverview host={host} />
+            {nearByHosts.slice(0, 5).map((host) => (
+              <HostOverview host={host?.host} />
             ))}
           </Flex>
         </Fade>
