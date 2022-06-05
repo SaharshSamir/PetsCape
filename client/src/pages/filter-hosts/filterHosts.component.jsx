@@ -68,13 +68,13 @@ const FilterHost = () => {
       if (type == "pets") {
         setHosts(
           res.filter(
-            (host) => host.hostType.toLowerCase() === "animal" || host.hostType === "both"
+            (host) => host?.hostType.toLowerCase() === "animal" || host?.hostType === "both"
           )
         );
       } else if (type == "plants") {
         setHosts(
           res.filter(
-            (host) => host.hostType === "Plants" || host.hostType === "both"
+            (host) => host?.hostType === "Plants" || host?.hostType === "both"
           )
         );
       } else {
@@ -154,7 +154,7 @@ const FilterHost = () => {
         </Text>
         <Flex direction="column">
           {hosts.map((host) => (
-            <HostPreview host={host} />
+            <HostPreview hostData={{ans:100,host}} />
           ))}
         </Flex>
       </Box>
