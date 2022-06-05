@@ -12,7 +12,7 @@ const createHost = async (req, res) => {
     hostBio,
     latitude,
     longitude,
-    hostImages
+    hostImages,
   } = req.body;
   if (
     !phone ||
@@ -41,7 +41,7 @@ const createHost = async (req, res) => {
         hostBio,
         isPending: true,
         location,
-        hostImages
+        hostImages,
       });
       if (updateDetails)
         return res.status(200).send({ ok: true, message: "Details Updated" });
@@ -138,11 +138,10 @@ const acceptRequest = async (req, res) => {
     rate,
   };
   try {
-    const request = await Request.findByIdAndUpdate(
-      reqId ,
-      { isApproved: true,price },
-      
-    );
+    const request = await Request.findByIdAndUpdate(reqId, {
+      isApproved: true,
+      price,
+    });
     if (request)
       return res.status(200).send({ ok: true, message: "Request Approved!" });
     else {
@@ -184,9 +183,6 @@ const changePrice = async (req, res) => {
     }
   } catch (error) {}
 };
-
-
-
 
 module.exports = {
   createHost,
