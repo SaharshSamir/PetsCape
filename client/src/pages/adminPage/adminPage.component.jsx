@@ -155,7 +155,6 @@ const AdminPage = () => {
                   simple
                   onClick={() => {
                     approveHost({ _id: selectedHost._id });
-                    window.location.reload();
                   }}
                 >
                   ACCEPT
