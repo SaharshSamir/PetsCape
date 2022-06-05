@@ -7,14 +7,18 @@ import Tab from "@mui/material/Tab";
 import { Box } from "@mui/system";
 import { Text, Flex } from "@chakra-ui/react";
 
+
 const UserRequests = () => {
-  const user = useSelector((store) => store.auth.user);
+  // const user = useSelector((store) => store.auth.user);
+  const {user} = useAuth();
   const [requests, setRequests] = useState([]);
   useEffect(() => {
     setRequests(user.userRequest);
     console.log(user);
-  }, []);
+  }, [user]);
   const [value, setValue] = React.useState(0);
+
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -38,6 +42,13 @@ const UserRequests = () => {
       </div>
     );
   }
+
+  useEffect(()=>{
+    console.log(requests);
+  },[requests])
+
+
+
   return (
     <Box height="auto">
       <Box sx={{ width: "100%" }}>
@@ -66,6 +77,7 @@ const UserRequests = () => {
                   alignItems="center"
                   flexWrap="wrap"
                 >
+                  
                   <ClientRequestCard req={req} />
                 </Flex>
               )

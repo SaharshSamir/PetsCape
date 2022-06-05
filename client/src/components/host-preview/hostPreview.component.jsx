@@ -26,10 +26,10 @@ const HostPreview = ({ hostData }) => {
           boxShadow:'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px'
         }}
       >
-        <ImageContainer url={host.profilePic}>{ans.toFixed(0)}m</ImageContainer>
+        <ImageContainer url={host?.profilePic}>{ans?.toFixed(2)}{" "} km</ImageContainer>
         <Flex direction="column" justifyContent="space-between" width="25%">
           <Box>
-            <Text fontSize="2em">{host.name}</Text>
+            <Text fontSize="2em">{host?.name}</Text>
             <Rating value={5} readOnly size="large" />
             <Text color="#A5A5A5" margin="5px 0 10px 0">
               88 reviews
@@ -48,7 +48,7 @@ const HostPreview = ({ hostData }) => {
           <CustomButton
             simple
             onClick={() => {
-              navigate(`/host/${host._id}`);
+              navigate(`/host/${host?._id}`);
             }}
           >
             VIEW PROFILE

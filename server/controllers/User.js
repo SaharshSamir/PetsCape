@@ -148,7 +148,7 @@ const getHostsNearMe = async (req, res) => {
         latitude,
         longitude
       );
-      const obj = { ans, host:host };
+      const obj = { ans, host: host };
       result.push(obj);
     }
 
