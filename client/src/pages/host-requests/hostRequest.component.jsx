@@ -44,7 +44,6 @@ const RequestOverview = ({ request }) => {
       reqId: request._id,
     };
     approveUserRequest(data);
-    window.location.reload();
   };
 
   const rejectRequest = () => {
@@ -243,7 +242,10 @@ const HostRequest = () => {
         <Text fontSize="2em">YOUR RECENT REQUESTS:</Text>
         <Flex direction="column" padding="20px 0px">
           {requests.length > 0
-            ? requests.slice().reverse().map((request) => <RequestOverview request={request} />)
+            ? requests
+                .slice()
+                .reverse()
+                .map((request) => <RequestOverview request={request} />)
             : null}
           {/* <RequestOverview request={requestData} /> */}
         </Flex>
@@ -252,4 +254,4 @@ const HostRequest = () => {
   );
 };
 
-export default  HostRequest;
+export default HostRequest;

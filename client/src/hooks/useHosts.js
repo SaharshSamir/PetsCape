@@ -75,12 +75,13 @@ const useHosts = () => {
   });
 
   const approveUserRequest = useCallback(async (data) => {
-    const res = await axiosInstance.post("request/acceptRequest", data);
+    const res = await axiosInstance.post("/request/acceptRequest", data);
     if (!res.data.ok) {
       enqueueSnackbar(res.data.message, { variant: "error" });
       return;
     }
     enqueueSnackbar(res.data.message, { variant: "success" });
+    window.location.reload();
   });
 
   const rejectUserRequest = useCallback(async (data) => {
