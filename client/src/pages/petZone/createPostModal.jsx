@@ -43,6 +43,7 @@ const CreatePostModal = ({ state, toggleModal }) => {
       <Box
         width="30vw"
         height="fit-content"
+        maxHeight="80vh"
         position="absolute"
         outline="none"
         borderRadius={10}
@@ -55,6 +56,7 @@ const CreatePostModal = ({ state, toggleModal }) => {
         flexDirection="column"
         padding="20px"
         gap="20px"
+
       >
         <Text fontWeight={600} fontSize="1.5em">
           POST A PICTURE
@@ -73,6 +75,8 @@ const CreatePostModal = ({ state, toggleModal }) => {
               width="100%"
               height="30%"
               borderRadius="10px"
+              objectFit="cover"
+              maxHeight="300px"
             />
           ) : null}
           <CustomButton simple onClick={showWidget}>

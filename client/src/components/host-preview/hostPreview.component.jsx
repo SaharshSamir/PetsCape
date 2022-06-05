@@ -41,7 +41,7 @@ const HostPreview = ({ hostData }) => {
                 sx={{ marginRight: "20px" }}
               />
             ) : null}
-            {host?.hostType === "plants" || host?.hostType === "both" ? (
+            {host?.hostType === "plant" || host?.hostType === "both" ? (
               <Chip label="Plants" icon={<Icon icon="ri:plant-fill" />} />
             ) : null}
           </Box>

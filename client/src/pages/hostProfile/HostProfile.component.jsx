@@ -66,7 +66,7 @@ const HostProfile = () => {
                     sx={{ marginRight: "20px" }}
                   />
                 ) : null}
-                {User?.hostType === "plants" || User?.hostType === "both" ? (
+                {User?.hostType === "plant" || User?.hostType === "both" ? (
                   <Chip label="Plants" icon={<Icon icon="ri:plant-fill" />} />
                 ) : null}
               </Flex>
@@ -117,7 +117,7 @@ const HostProfile = () => {
                 />
               </Grid>
             ))}
-            {[...Array(5)].map((i) => (
+            {/* {[...Array(5)].map((i) => (
               <Grid item md={2}>
                 <Box
                   backgroundImage={`url('https://www.nestle.com/sites/default/files/pet-care-header.jpg')`}
@@ -128,7 +128,7 @@ const HostProfile = () => {
                   borderRadius="10px"
                 />
               </Grid>
-            ))}
+            ))} */}
           </Grid>
         </Box>
       </Box>

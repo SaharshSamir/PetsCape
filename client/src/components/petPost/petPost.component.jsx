@@ -5,6 +5,8 @@ import { Icon } from "@iconify/react";
 import { PetPostContainer } from "./petPost.styles";
 import axios from "../../utils/axios";
 
+
+
 const PetPost = ({ imageUrl, post }) => {
   const [spanNumber, setspanNumber] = useState(0);
   const [likes, setLikes] = useState(post.likes);
