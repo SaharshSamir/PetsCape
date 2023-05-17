@@ -12,8 +12,8 @@ const CreatePostModal = ({ state, toggleModal }) => {
   const showWidget = () => {
     let widget = window.cloudinary.createUploadWidget(
       {
-        cloudName: `dx1ye2bro`,
-        uploadPreset: `kp2gvmnk`,
+        cloudName: `dsgvnfe0o`,
+        uploadPreset: `tye7r2np`,
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
