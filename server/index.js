@@ -13,6 +13,10 @@ require("./db/conn");
 app.use("/", require("./routes/UserRoutes"));
 app.use("/request", require("./routes/RequestRoutes"));
 
+app.get("/health", (req, res) => {
+    return res.status(200).send("running...");
+})
+
 app.listen(port, () => {
   console.log(`App listening on port http://localhost:${port}`);
 });
