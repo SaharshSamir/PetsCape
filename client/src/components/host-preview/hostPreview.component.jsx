@@ -5,13 +5,11 @@ import React from "react";
 import CustomButton from "../custom-button/customButton.component";
 import { ImageContainer } from "./hostPreview.styles";
 import { Icon } from "@iconify/react";
-import { Fade } from "react-reveal";
 
 const HostPreview = ({ hostData }) => {
   const {host,ans} = hostData;
   const navigate = useNavigate();
   return (
-    <Fade bottom>
       <Flex
         borderRadius="10px"
         backgroundColor="#f5f5f5"
@@ -76,7 +74,6 @@ const HostPreview = ({ hostData }) => {
           </Flex>
         </Flex>
       </Flex>
-    </Fade>
   );
 };
 

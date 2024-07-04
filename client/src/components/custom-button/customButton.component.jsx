@@ -22,7 +22,7 @@ export const SecondaryButton = styled(Button)(({simple}) => ({
   },
 }));
 const CustomButton = ({ children,simple, ...props }) => {
-  return <CustomButtonContainer simple={simple} {...props}>{children}</CustomButtonContainer>;
+  return <span><CustomButtonContainer simple={simple} {...props}>{children}</CustomButtonContainer></span>;
 };
 
 export default CustomButton;

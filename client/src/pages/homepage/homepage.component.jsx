@@ -7,7 +7,6 @@ import HostOverview from "../../components/host-overview/hostOverview.component"
 import HostPreview from "../../components/host-preview/hostPreview.component";
 import { useNavigate } from "react-router-dom";
 import useHosts from "../../hooks/useHosts";
-import { Fade } from "react-reveal";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
@@ -151,7 +150,6 @@ const Homepage = () => {
         </Flex>
       </Box>
       <Box padding="20px" width="90%">
-        <Fade bottom>
           <Flex
             flexDirection="row"
             alignItems="center"
@@ -168,7 +166,6 @@ const Homepage = () => {
               <HostOverview host={host?.host} />
             ))}
           </Flex>
-        </Fade>
       </Box>
       <Box padding="20px" width="90%">
         <Text fontSize="2em" margin="10px 0 20px 0">
